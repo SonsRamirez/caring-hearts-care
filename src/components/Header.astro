@@ -20,40 +20,40 @@ const NAV = [
 ];
 ---
 
-<header>
-  <div class="utilbar">
-    <div class="wrap utilbar__in">
-      <div class="utilbar__left">
-        <span><Icon name="map-pin" />Potomac, MD &amp; the greater DC area</span>
-        <span><Icon name="clock" />Available 24 / 7</span>
-      </div>
-      <a class="utilbar__phone" href="/contact"><Icon name="calendar-check" />Request a Free Consultation</a>
+{/* utility bar (scrolls away) + sticky white nav are siblings so the nav can
+    stick across the whole page rather than only within a short wrapper. */}
+<div class="utilbar">
+  <div class="wrap utilbar__in">
+    <div class="utilbar__left">
+      <span><Icon name="map-pin" />Potomac, MD &amp; the greater DC area</span>
+      <span><Icon name="clock" />Available 24 / 7</span>
     </div>
+    <a class="utilbar__phone" href="/contact"><Icon name="calendar-check" />Request a Free Consultation</a>
   </div>
-  <div class="header">
-    <div class="wrap header__in">
-      <Logo variant="navy" />
-      <nav class="nav">
-        {NAV.map((n) => (
-          <a href={n.href} class={active === n.id ? 'is-active' : ''}>{n.label}</a>
-        ))}
-      </nav>
-      <div class="header__cta">
-        <Button variant="secondary" size="sm" href="/services">Our Services</Button>
-        <Button variant="primary" size="sm" href="/contact">Free Consultation</Button>
-      </div>
-      <button class="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-nav">
-        <Icon name="menu" />
-      </button>
+</div>
+<header class="header">
+  <div class="wrap header__in">
+    <Logo variant="navy" />
+    <nav class="nav">
+      {NAV.map((n) => (
+        <a href={n.href} class={active === n.id ? 'is-active' : ''}>{n.label}</a>
+      ))}
+    </nav>
+    <div class="header__cta">
+      <Button variant="secondary" size="sm" href="/services">Our Services</Button>
+      <Button variant="primary" size="sm" href="/contact">Free Consultation</Button>
     </div>
+    <button class="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-nav">
+      <Icon name="menu" />
+    </button>
   </div>
-  <nav class="mobile-nav" id="mobile-nav" hidden>
-    {NAV.map((n) => (
-      <a href={n.href} class={active === n.id ? 'is-active' : ''}>{n.label}</a>
-    ))}
-    <a href="/contact" class="mobile-nav__cta">Request a Free Consultation</a>
-  </nav>
 </header>
+<nav class="mobile-nav" id="mobile-nav" hidden>
+  {NAV.map((n) => (
+    <a href={n.href} class={active === n.id ? 'is-active' : ''}>{n.label}</a>
+  ))}
+  <a href="/contact" class="mobile-nav__cta">Request a Free Consultation</a>
+</nav>
 
 <style>
   /* Mobile nav — shown only at the kit's <=900px breakpoint where .nav hides */

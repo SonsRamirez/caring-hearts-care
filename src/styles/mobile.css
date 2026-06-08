@@ -5,10 +5,9 @@
    and tightens type/spacing for phones. Loaded last (after kit.css).
    ============================================================ */
 
-/* Kill any sideways scroll from decorative negative offsets.
-   `clip` (not `hidden`) so it doesn't break the sticky header. */
-html { overflow-x: clip; }
-body { overflow-x: clip; max-width: 100%; }
+/* Images never exceed their container. (We intentionally do NOT set overflow-x on
+   html/body — that breaks the sticky header. The actual overflow sources are fixed
+   in the rules below and in kit.css.) */
 img { max-width: 100%; height: auto; }
 
 /* ---- Tablet / small laptop ---- */
