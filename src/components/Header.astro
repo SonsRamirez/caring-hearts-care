@@ -3,7 +3,6 @@
 import Logo from './Logo.astro';
 import Button from './Button.astro';
 import Icon from './Icon.astro';
-import { site } from '../data/site';
 
 interface Props {
   active?: string;
@@ -28,7 +27,7 @@ const NAV = [
         <span><Icon name="map-pin" />Potomac, MD &amp; the greater DC area</span>
         <span><Icon name="clock" />Available 24 / 7</span>
       </div>
-      <a class="utilbar__phone" href={site.phoneHref}><Icon name="phone" />{site.phone}</a>
+      <a class="utilbar__phone" href="/contact"><Icon name="calendar-check" />Request a Free Consultation</a>
     </div>
   </div>
   <div class="header">
@@ -40,7 +39,7 @@ const NAV = [
         ))}
       </nav>
       <div class="header__cta">
-        <Button variant="dark" size="sm" icon="phone" href={site.phoneHref}>Call Us 24/7</Button>
+        <Button variant="secondary" size="sm" href="/services">Our Services</Button>
         <Button variant="primary" size="sm" href="/contact">Free Consultation</Button>
       </div>
       <button class="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-nav">

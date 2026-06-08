@@ -1,8 +1,8 @@
 ---
-/** CtaBand — navy gradient conversion band (eyebrow → title → optional copy → CTAs). */
+/** CtaBand — navy gradient conversion band (eyebrow → title → optional copy → CTAs).
+ *  Primary CTA drives to the contact form. An optional secondary nav button can be passed. */
 import Eyebrow from './Eyebrow.astro';
 import Button from './Button.astro';
-import { site } from '../data/site';
 
 interface Props {
   eyebrow?: string;
@@ -10,6 +10,8 @@ interface Props {
   intro?: string;
   primaryLabel?: string;
   primaryHref?: string;
+  secondaryLabel?: string;
+  secondaryHref?: string;
 }
 const {
   eyebrow = 'Start the Conversation',
@@ -17,6 +19,8 @@ const {
   intro,
   primaryLabel = 'Get In Touch',
   primaryHref = '/contact',
+  secondaryLabel,
+  secondaryHref,
 } = Astro.props;
 ---
 
@@ -26,6 +30,8 @@ const {
   {intro && <p>{intro}</p>}
   <div class="ctaband__row">
     <Button variant="primary" size="lg" href={primaryHref}>{primaryLabel}</Button>
-    <Button variant="ghost-light" size="lg" icon="phone" href={site.phoneHref}>{site.phone}</Button>
+    {secondaryLabel && secondaryHref && (
+      <Button variant="ghost-light" size="lg" iconRight="arrow-right" href={secondaryHref}>{secondaryLabel}</Button>
+    )}
   </div>
 </div>

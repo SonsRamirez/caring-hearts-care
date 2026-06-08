@@ -20,12 +20,8 @@ import { site } from '../data/site';
       <div class="contact__info">
         <Heading eyebrow="Reach Us" title="We’re here 24 / 7" />
         <div class="infoline">
-          <span class="infoline__icon"><Icon name="phone" /></span>
-          <div><b>Call us anytime</b><span>{site.phone} — available around the clock</span></div>
-        </div>
-        <div class="infoline">
-          <span class="infoline__icon"><Icon name="mail" /></span>
-          <div><b>Email</b><span>{site.email}</span></div>
+          <span class="infoline__icon"><Icon name="message-circle" /></span>
+          <div><b>Send us a message</b><span>Fill out the form and a care coordinator will respond promptly — day or night.</span></div>
         </div>
         <div class="infoline">
           <span class="infoline__icon"><Icon name="map-pin" /></span>
@@ -33,7 +29,7 @@ import { site } from '../data/site';
         </div>
         <div class="infoline">
           <span class="infoline__icon"><Icon name="clock" /></span>
-          <div><b>Hours</b><span>{site.hours}</span></div>
+          <div><b>Availability</b><span>{site.hours}</span></div>
         </div>
         <div class="map"><Icon name="map" />Service-area map — Potomac &amp; the DMV</div>
       </div>
@@ -43,7 +39,7 @@ import { site } from '../data/site';
         <div id="form-success" class="formsuccess" hidden>
           <div class="ok"><Icon name="check" /></div>
           <h3 style="font-family:var(--font-serif);color:var(--chc-navy);font-size:1.6rem;margin:0 0 0.5rem;">Thank you<span id="success-name"></span>.</h3>
-          <p style="color:var(--text-muted);margin:0 auto;max-width:36ch;">A care coordinator will reach out shortly. If it’s urgent, call us 24/7 at {site.phone}.</p>
+          <p style="color:var(--text-muted);margin:0 auto;max-width:36ch;">A care coordinator will reach out shortly using the contact details you provided. We’re available around the clock.</p>
           <div style="margin-top:1.6rem;">
             <Button variant="secondary" id="send-another">Send another message</Button>
           </div>
@@ -67,7 +63,7 @@ import { site } from '../data/site';
             </div>
             <div class="field">
               <label for="phone">Phone <span class="req">*</span></label>
-              <input id="phone" name="phone" required type="tel" placeholder={site.phone} />
+              <input id="phone" name="phone" required type="tel" placeholder="Best number to reach you" />
             </div>
           </div>
           <div class="field">
@@ -145,7 +141,7 @@ import { site } from '../data/site';
 
     // Guard against the unconfigured placeholder key.
     if (String(data.get('access_key')).startsWith('YOUR_')) {
-      showError('This form isn’t connected yet. Please call us, or try again soon.');
+      showError('This form isn’t connected yet. Please try again soon.');
       return;
     }
 
@@ -169,10 +165,10 @@ import { site } from '../data/site';
         if (success) success.hidden = false;
         success?.scrollIntoView({ behavior: 'smooth', block: 'center' });
       } else {
-        showError(json.message || 'Something went wrong. Please try again or call us.');
+        showError(json.message || 'Something went wrong. Please try again in a moment.');
       }
     } catch {
-      showError('Network error. Please try again, or call us 24/7.');
+      showError('Network error. Please check your connection and try again.');
     } finally {
       if (submitBtn) {
         submitBtn.disabled = false;
