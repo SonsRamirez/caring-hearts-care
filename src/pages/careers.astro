@@ -1,0 +1,102 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SubHero from '../components/SubHero.astro';
+import Heading from '../components/Heading.astro';
+import Eyebrow from '../components/Eyebrow.astro';
+import Button from '../components/Button.astro';
+import Icon from '../components/Icon.astro';
+
+const PERKS = [
+  { icon: 'heart', h: 'Meaningful work', p: 'Make a real difference in a family’s life, every single shift.' },
+  { icon: 'calendar-clock', h: 'Flexible scheduling', p: 'Full-time, part-time, live-in or per-diem — we build shifts around your life.' },
+  { icon: 'graduation-cap', h: 'Paid ongoing training', p: 'Grow your skills with continuing education and clear support from supervisors.' },
+  { icon: 'users', h: 'A supportive team', p: 'You’re never on your own — coordinators and nurses have your back.' },
+];
+
+const ROLES = [
+  { title: 'Home Health Aide (HHA)', type: 'Full-time / Part-time', loc: 'Potomac & the DMV' },
+  { title: 'Companion Caregiver', type: 'Flexible hours', loc: 'DC · MD · VA' },
+  { title: 'Certified Nursing Assistant (CNA)', type: 'Per diem', loc: 'DC · MD · VA' },
+  { title: 'Live-In Caregiver', type: 'Full-time', loc: 'Potomac & the DMV' },
+];
+
+const REQS = [
+  'Home Health Aide (HHA) certification, or willingness to obtain one',
+  'Pass a thorough background and reference check',
+  'A compassionate, patient and reliable nature',
+  'Reliable transportation and strong communication skills',
+];
+
+const applyHref = '/contact?subject=Careers';
+---
+
+<BaseLayout active="careers" title="Careers"
+  description="Join a team that cares. Caring Hearts Care is hiring compassionate HHAs, companions, CNAs and live-in caregivers across Potomac and the greater DC, MD & VA area.">
+  <SubHero
+    title="Join a team that cares"
+    intro="We’re always looking for compassionate, dedicated caregivers to welcome into the Caring Hearts family. If caring for others is your calling, we’d love to meet you."
+    crumbs={[{ label: 'Home', href: '/' }, { label: 'Careers' }]} />
+
+  {/* Why work here */}
+  <section class="band band--cream">
+    <div class="wrap">
+      <div class="center-head">
+        <Heading center eyebrow="Why Work With Us" title="More than a job — a calling" />
+      </div>
+      <div class="grid-4">
+        {PERKS.map((p) => (
+          <div class="card" style="text-align:left;">
+            <span class="feature__icon" style="background:var(--chc-gold-tint);color:var(--chc-gold-deep);margin-bottom:1rem;"><Icon name={p.icon} /></span>
+            <h3 style="font-family:var(--font-serif);color:var(--chc-navy);font-size:1.2rem;margin:0 0 0.4rem;">{p.h}</h3>
+            <p style="margin:0;color:var(--text-muted);line-height:var(--leading-normal);">{p.p}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  {/* Open roles + requirements */}
+  <section class="band band--white">
+    <div class="wrap careers-grid">
+      <div>
+        <Heading eyebrow="Open Positions" title="Current openings" />
+        <div class="roles">
+          {ROLES.map((r) => (
+            <div class="role">
+              <div>
+                <b>{r.title}</b>
+                <span class="role__meta"><Icon name="clock" />{r.type}<Icon name="map-pin" />{r.loc}</span>
+              </div>
+              <Button variant="secondary" size="sm" href={applyHref} iconRight="arrow-right">Apply</Button>
+            </div>
+          ))}
+        </div>
+      </div>
+      <aside class="careers-reqs">
+        <Eyebrow tick>What We Look For</Eyebrow>
+        <h3>Caregiver requirements</h3>
+        <div class="faq__list">
+          {REQS.map((q) => (
+            <div class="faq__row"><Icon name="check" /><p>{q}</p></div>
+          ))}
+        </div>
+        <p class="careers-note">Every caregiver is background-checked and supported by a licensed-nurse assessment process.</p>
+      </aside>
+    </div>
+  </section>
+
+  {/* Apply CTA */}
+  <section class="band band--gray">
+    <div class="wrap">
+      <div class="ctaband">
+        <Eyebrow onDark>Ready to Apply?</Eyebrow>
+        <h2>Start your caregiving career with Caring Hearts</h2>
+        <p>Tell us about yourself and we’ll be in touch. We can’t wait to welcome you to the family.</p>
+        <div class="ctaband__row">
+          <Button variant="primary" size="lg" href={applyHref}>Apply Now</Button>
+          <Button variant="ghost-light" size="lg" icon="phone" href="/contact">Call Us 24/7</Button>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

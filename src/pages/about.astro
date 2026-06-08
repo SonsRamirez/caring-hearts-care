@@ -1,0 +1,90 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SubHero from '../components/SubHero.astro';
+import Heading from '../components/Heading.astro';
+import Eyebrow from '../components/Eyebrow.astro';
+import Button from '../components/Button.astro';
+import CtaBand from '../components/CtaBand.astro';
+import Icon from '../components/Icon.astro';
+
+const VALUES = [
+  { icon: 'heart-handshake', h: 'Compassion as a way of life', p: 'We don’t just provide a service — we offer solace, understanding and a genuine connection.' },
+  { icon: 'shield-check', h: 'Trust, earned daily', p: 'Rigorously licensed caregivers, chosen for their passion and dedication to their calling.' },
+  { icon: 'users', h: 'An extension of family', p: 'Our caregivers are the extended arms of our clients’ families — love, empathy and companionship when it’s needed most.' },
+];
+---
+
+<BaseLayout active="about" title="About"
+  description="Caring Hearts Care was born from one family’s search for compassionate, reliable home care — and a promise to give other families the peace of mind they deserve.">
+  <SubHero
+    title="A journey of love and dedication"
+    intro="Caring Hearts Care was born from one family’s search for compassionate, reliable care — and a promise to give other families the peace of mind they deserve."
+    crumbs={[{ label: 'Home', href: '/' }, { label: 'About' }]} />
+
+  {/* Founder */}
+  <section class="band band--cream">
+    <div class="wrap about-founder">
+      <div class="about-founder__media">
+        <div class="about-founder__photo" style="background-image:url(/assets/photos/caregiver-couch.jpg)" role="img" aria-label="A nurse sitting on a couch holding an elderly client’s hand"></div>
+        <div class="about-founder__plate">
+          <span class="eyebrow">Co-Founder</span>
+          <b>Nathalie Massey</b>
+        </div>
+      </div>
+      <div class="about-founder__body">
+        <Eyebrow tick>Meet the Founder</Eyebrow>
+        <h2 class="about-founder__title">When finding care for my mother became the hardest thing I’d ever done.</h2>
+        <p>Seven years ago, my mother suffered two life-altering strokes. Suddenly, the simple act of finding adequate care for her became an arduous challenge, laden with stress and anxiety. I intimately understand the fear of entrusting our loved ones into the hands of strangers — the silent battles we fight every day.</p>
+        <p>As an accountant by trade, I never imagined myself venturing into home care. But faced with the daunting task of finding compassionate, reliable caregivers for my mother, I embarked on a journey that would forever change my perspective — and Caring Hearts Care was born.</p>
+        <p>I know nothing can truly replace the love and care of a family member. But I am committed to creating the closest semblance of it, so every client’s family can rest easy knowing their loved ones are in gentle, capable hands.</p>
+        <blockquote class="about-quote">
+          &ldquo;Treating your family like ours, because we’ve faced the struggle of finding the right care too.&rdquo;
+          <cite>&mdash; Nathalie M.</cite>
+        </blockquote>
+      </div>
+    </div>
+  </section>
+
+  {/* Values */}
+  <section class="band band--white">
+    <div class="wrap">
+      <div class="center-head">
+        <Heading center eyebrow="What We Believe" title="Compassion is not just a virtue — it’s how we work" />
+      </div>
+      <div class="grid-3">
+        {VALUES.map((v) => (
+          <div class="card" style="text-align:left;">
+            <span class="feature__icon" style="background:var(--chc-gold-tint);color:var(--chc-gold-deep);margin-bottom:1rem;"><Icon name={v.icon} /></span>
+            <h3 style="font-family:var(--font-serif);color:var(--chc-navy);font-size:1.3rem;margin:0 0 0.4rem;">{v.h}</h3>
+            <p style="margin:0;color:var(--text-muted);line-height:var(--leading-normal);">{v.p}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  {/* Pledge band */}
+  <section class="band band--navy">
+    <div class="wrap pledge">
+      <div class="pledge__media">
+        <div class="pledge__photo" style="background-image:url(/assets/photos/pledge.jpg)" role="img" aria-label="A caregiver holding the hand of a senior client"></div>
+      </div>
+      <div>
+        <Heading onDark eyebrow="The Caring Hearts Pledge" title="Your Family Is Our Family" />
+        <p style="color:rgba(255,255,255,0.86);line-height:var(--leading-normal);max-width:46ch;">
+          We promise to treat your family with the same love and dedication we’d give our own. Having sought these services for our own loved ones, we understand the challenge of finding just the right caregiver — and we’ll make sure you never feel alone in this journey.
+        </p>
+        <div style="margin-top:1.6rem;">
+          <Button variant="primary" href="/services">Discover Our Services</Button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {/* CTA */}
+  <section class="band band--gray">
+    <div class="wrap">
+      <CtaBand title="Let’s talk about caring for your loved one" />
+    </div>
+  </section>
+</BaseLayout>

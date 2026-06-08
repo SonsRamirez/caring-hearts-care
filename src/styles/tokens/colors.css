@@ -1,0 +1,53 @@
+/* Caring Hearts Care — Color tokens
+   Navy = trust & foundation · Gold = warmth & premium accent · Cream = soft premium ground */
+
+:root {
+  /* ---- Brand: Navy ---- */
+  --chc-navy: #0E2A47;        /* Primary — headlines, footer, nav, dark sections */
+  --chc-navy-deep: #091B30;   /* Deep — top utility bar, footer base, overlays */
+  --chc-navy-mid: #1C4A7C;    /* Mid/Hover — link hover, secondary buttons, icons */
+
+  /* ---- Brand: Gold ---- */
+  --chc-gold: #C8A14B;        /* Primary accent — CTA buttons, dividers, highlights */
+  --chc-gold-light: #E0C681;  /* Light — hover, badges, subtle highlights */
+  --chc-gold-deep: #A07C2C;   /* Deep — button hover/pressed, text-on-cream accent */
+
+  /* ---- Neutrals (warm) ---- */
+  --chc-cream: #FAF7F0;       /* Page / section background — warm, not stark */
+  --chc-warm-gray: #F4F2EE;   /* Alternating bands, cards */
+  --chc-border: #E2DDD3;      /* Card borders, rules */
+  --chc-ink: #23303F;         /* Body copy — soft navy-black */
+  --chc-white: #FFFFFF;
+
+  /* ---- Tints for surfaces & states ---- */
+  --chc-navy-tint: #EAEFF4;   /* faint navy wash */
+  --chc-gold-tint: #F6EFDD;   /* faint gold wash */
+
+  /* ===== Semantic aliases ===== */
+  --color-bg: var(--chc-cream);
+  --color-bg-alt: var(--chc-warm-gray);
+  --surface-card: var(--chc-white);
+  --surface-dark: var(--chc-navy);
+  --surface-dark-deep: var(--chc-navy-deep);
+
+  --text-heading: var(--chc-navy);
+  --text-body: var(--chc-ink);
+  --text-muted: #5B6B7A;
+  --text-on-dark: var(--chc-white);
+  --text-on-dark-muted: #B6C4D4;
+  --text-on-gold: var(--chc-navy);
+
+  --color-accent: var(--chc-gold);
+  --color-accent-hover: var(--chc-gold-deep);
+  --color-link: var(--chc-navy-mid);
+  --color-link-hover: var(--chc-navy);
+
+  --border-divider: var(--chc-border);
+  --border-strong: #CBC4B5;
+
+  /* Semantic status (kept warm/muted to match brand) */
+  --color-success: #3E7C5A;
+  --color-warning: #C8821F;
+  --color-error: #B23A48;
+  --color-info: var(--chc-navy-mid);
+}

@@ -1,0 +1,76 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SubHero from '../../components/SubHero.astro';
+import Heading from '../../components/Heading.astro';
+import Eyebrow from '../../components/Eyebrow.astro';
+import Button from '../../components/Button.astro';
+import ServiceCard from '../../components/ServiceCard.astro';
+import Icon from '../../components/Icon.astro';
+import { services } from '../../data/services';
+
+const STEPS = [
+  { n: '01', icon: 'file-pen', h: 'Form Submission', p: 'Complete our online form to begin. This first step gathers the details we need to understand your care needs and preferences.' },
+  { n: '02', icon: 'stethoscope', h: 'Nurse Assessment', p: 'A skilled nurse conducts a detailed assessment of your loved one’s specific requirements, so we craft a care plan as unique as they are.' },
+  { n: '03', icon: 'heart-handshake', h: 'Enjoy Home Care', p: 'With the plan in place, your loved one begins receiving compassionate, customized home care — and you see the difference it makes.' },
+];
+---
+
+<BaseLayout active="services" title="Services"
+  description="The full spectrum of in-home senior care — personal care, companionship, transportation, respite, dementia care and more — across Potomac and the greater DC, MD & VA area.">
+  <SubHero
+    title="Services tailored for you"
+    intro="Providing the full spectrum of home care to support your loved one’s independence and well-being — across Potomac and the greater DC, Maryland &amp; Virginia area."
+    crumbs={[{ label: 'Home', href: '/' }, { label: 'Services' }]} />
+
+  <section class="band band--cream">
+    <div class="wrap">
+      <div class="grid-3">
+        {services.map((s) => (
+          <ServiceCard icon={s.icon} title={s.title} description={s.cardDesc} image={s.image} href={`/services/${s.id}`} />
+        ))}
+        <div class="card" style="background:var(--chc-navy);display:flex;flex-direction:column;justify-content:center;gap:0.9rem;">
+          <Eyebrow onDark>Not sure what you need?</Eyebrow>
+          <h3 style="font-family:var(--font-serif);color:#fff;font-size:1.5rem;margin:0;">We’ll help you decide.</h3>
+          <p style="color:var(--text-on-dark-muted);margin:0;">A free consultation is the easiest first step. No pressure, just guidance.</p>
+          <div style="margin-top:0.4rem;">
+            <Button variant="primary" href="/contact">Get In Touch</Button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band band--white">
+    <div class="wrap">
+      <div class="center-head">
+        <Heading center eyebrow="Our Approach" title="Our home care process"
+          intro="Three simple steps from first contact to compassionate care in the home." />
+      </div>
+      <div class="grid-3">
+        {STEPS.map((s) => (
+          <div class="card" style="text-align:left;">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;">
+              <span class="feature__icon" style="background:var(--chc-gold-tint);color:var(--chc-gold-deep);"><Icon name={s.icon} /></span>
+              <span style="font-family:var(--font-serif);font-size:1.8rem;color:var(--chc-border);font-weight:700;">{s.n}</span>
+            </div>
+            <h3 style="font-family:var(--font-serif);color:var(--chc-navy);font-size:1.25rem;margin:0 0 0.4rem;">{s.h}</h3>
+            <p style="margin:0;color:var(--text-muted);line-height:var(--leading-normal);">{s.p}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="band band--gray">
+    <div class="wrap">
+      <div class="ctaband">
+        <Eyebrow onDark>Free, No-Obligation Consultation</Eyebrow>
+        <h2>Care for your loved one starts with a conversation</h2>
+        <div class="ctaband__row">
+          <Button variant="primary" size="lg" href="/contact">Request a Free Consultation</Button>
+          <Button variant="ghost-light" size="lg" icon="phone" href="/contact">Call Us 24/7</Button>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

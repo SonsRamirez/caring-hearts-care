@@ -1,0 +1,49 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SubHero from '../../components/SubHero.astro';
+import Icon from '../../components/Icon.astro';
+import { articles } from '../../data/articles';
+
+const featured = articles[0];
+const rest = articles.slice(1);
+---
+
+<BaseLayout active="blog" title="Blog"
+  description="Practical guidance and stories for families navigating home care across the DMV — from the Caring Hearts Care team.">
+  <SubHero
+    title="Latest news &amp; caregiving insights"
+    intro="Practical guidance and stories for families navigating home care across the DMV."
+    crumbs={[{ label: 'Home', href: '/' }, { label: 'Blog' }]} />
+
+  <section class="band band--cream">
+    <div class="wrap">
+      <a class="post post--featured" href={`/blog/${featured.id}`}>
+        <div class="post__photo" style={`background-image:url(${featured.hero})`} role="img" aria-label={`${featured.category} article`}>
+          <span class="post__cat">{featured.category}</span>
+        </div>
+        <div class="post__body">
+          <div class="post__meta"><Icon name="calendar" />{featured.date}</div>
+          <h3 class="post__title">{featured.title}</h3>
+          <p class="post__excerpt">{featured.deck}</p>
+          <span class="service__link">Read more<Icon name="arrow-right" /></span>
+        </div>
+      </a>
+
+      <div class="grid-2" style="margin-top:var(--space-6);">
+        {rest.map((p) => (
+          <a class="post" href={`/blog/${p.id}`}>
+            <div class="post__photo" style={`background-image:url(${p.hero})`} role="img" aria-label={`${p.category} article`}>
+              <span class="post__cat">{p.category}</span>
+            </div>
+            <div class="post__body">
+              <div class="post__meta"><Icon name="calendar" />{p.date}</div>
+              <h3 class="post__title">{p.title}</h3>
+              <p class="post__excerpt">{p.deck}</p>
+              <span class="service__link">Read more<Icon name="arrow-right" /></span>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>

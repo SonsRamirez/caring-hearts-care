@@ -1,0 +1,83 @@
+---
+/** Renders one article body block. Mirrors the kit's block renderer. */
+import Icon from './Icon.astro';
+import { slugify } from '../data/articles';
+
+interface Props {
+  b: any;
+}
+const { b } = Astro.props;
+---
+
+{b.type === 'p' && <p class="prose-p">{b.text}</p>}
+
+{b.type === 'h2' && <h2 class="prose-h2" id={slugify(b.text)}>{b.text}</h2>}
+
+{b.type === 'quote' && (
+  <blockquote class="prose-quote">{b.text}{b.cite && <cite>{b.cite}</cite>}</blockquote>
+)}
+
+{b.type === 'image' && (
+  <figure class="prose-figure">
+    <div class="prose-img" style={`background-image:url(${b.src})`} role="img" aria-label={b.caption || ''}></div>
+    {b.caption && <figcaption>{b.caption}</figcaption>}
+  </figure>
+)}
+
+{b.type === 'video' && (
+  <figure class="prose-figure">
+    <div class="video-frame" style={`background-image:url(${b.src})`} role="img" aria-label="Video">
+      <div class="video-frame__veil"></div>
+      <button class="video-frame__play" aria-label="Play video"><Icon name="play" /></button>
+      {b.label && <span class="video-frame__label"><Icon name="video" />{b.label}</span>}
+    </div>
+    {b.caption && <figcaption>{b.caption}</figcaption>}
+  </figure>
+)}
+
+{b.type === 'callout' && (
+  <div class="callout-box">
+    <span class="callout-box__icon"><Icon name="lightbulb" /></span>
+    <div><b>{b.title}</b><p>{b.text}</p></div>
+  </div>
+)}
+
+{b.type === 'learn' && (
+  <div class="learn-box">
+    <b>{b.title}</b>
+    <ul>{b.items.map((it: string) => <li><Icon name="arrow-right" />{it}</li>)}</ul>
+  </div>
+)}
+
+{b.type === 'numbered' && (
+  <div class="num-item" id={`sec-${b.n}`}>
+    <span class="num-item__n">{String(b.n).padStart(2, '0')}</span>
+    <div class="num-item__body">
+      <h3>{b.h}</h3>
+      <p>{b.text}</p>
+    </div>
+  </div>
+)}
+
+{b.type === 'checklist' && (
+  <div class="checklist-box">
+    <b>{b.title}</b>
+    <div class="checklist-box__list">
+      {b.items.map((it: string) => (
+        <div class="checklist-box__row"><span class="checklist-box__box"><Icon name="check" /></span>{it}</div>
+      ))}
+    </div>
+  </div>
+)}
+
+{b.type === 'profile' && (
+  <div class="profile-card">
+    <div class="profile-card__photo" style={`background-image:url(${b.src})`} role="img" aria-label={b.name}></div>
+    <div class="profile-card__body">
+      <span class="eyebrow">Caregiver Spotlight</span>
+      <b>{b.name}</b>
+      <span class="profile-card__role">{b.role}</span>
+      <p>{b.text}</p>
+    </div>
+  </div>
+)}

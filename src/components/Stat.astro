@@ -1,0 +1,15 @@
+---
+/** Stat — large serif value (optional gold suffix) over a label. */
+interface Props {
+  value: string;
+  suffix?: string;
+  label: string;
+  onDark?: boolean;
+}
+const { value, suffix, label, onDark } = Astro.props;
+---
+
+<div class={`stat ${onDark ? 'stat--ondark' : ''}`}>
+  <div class="stat__value">{value}{suffix && <em>{suffix}</em>}</div>
+  <div class="stat__label">{label}</div>
+</div>

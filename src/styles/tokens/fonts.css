@@ -1,0 +1,5 @@
+/* Caring Hearts Care — Webfonts
+   Headings: Tinos (elegant serif) · Body/Nav: Jost (geometric sans) · UI/Buttons: Source Sans 3
+   All free Google Fonts. Imported here so the whole closure ships to consumers. */
+
+@import url('https://fonts.googleapis.com/css2?family=Tinos:ital,wght@0,400;0,700;1,400;1,700&family=Jost:wght@300;400;500;600;700&family=Source+Sans+3:wght@400;600;700&display=swap');

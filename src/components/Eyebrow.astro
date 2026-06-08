@@ -1,0 +1,14 @@
+---
+/** Eyebrow — uppercase gold label, the recurring brand motif. */
+interface Props {
+  onDark?: boolean;
+  tick?: boolean;
+  class?: string;
+}
+const { onDark, tick, class: className } = Astro.props;
+const cls = ['eyebrow', onDark ? 'eyebrow--ondark' : '', className].filter(Boolean).join(' ');
+---
+
+<span class={cls}>
+  {tick && <span class="eyebrow__tick"></span>}<slot />
+</span>

@@ -1,0 +1,12 @@
+---
+/** Badge — pill label. Tones: gold | navy | soft | success. */
+interface Props {
+  tone?: 'gold' | 'navy' | 'soft' | 'success';
+  dot?: boolean;
+  class?: string;
+}
+const { tone = 'gold', dot, class: className } = Astro.props;
+const cls = ['badge', `badge--${tone}`, className].filter(Boolean).join(' ');
+---
+
+<span class={cls}>{dot && <span class="badge__dot"></span>}<slot /></span>

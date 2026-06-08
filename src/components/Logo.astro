@@ -1,0 +1,18 @@
+---
+/** Logo — heart-from-two-Cs mark + wordmark, links home. */
+interface Props {
+  variant?: 'navy' | 'gold' | 'white' | 'cream' | 'deepnavy';
+  withWords?: boolean;
+}
+const { variant = 'navy', withWords = true } = Astro.props;
+---
+
+<a class="brand" href="/" aria-label="Caring Hearts Care — home">
+  <img src={`/assets/logos/logo-${variant}.png`} alt="Caring Hearts Care" />
+  {withWords && (
+    <div>
+      <div class="brand__name">Caring Hearts <em>Care</em></div>
+      <div class="brand__tag">Your Family Is Our Family</div>
+    </div>
+  )}
+</a>

@@ -1,0 +1,24 @@
+---
+/**
+ * Thin wrapper over astro-icon so the rest of the site can keep the kit's
+ * `data-lucide` names. Centralizes aliases for icons Lucide has renamed.
+ */
+import { Icon as AstroIcon } from 'astro-icon/components';
+
+interface Props {
+  name: string;
+  [key: string]: any;
+}
+
+const { name, ...rest } = Astro.props;
+
+// Map kit/lucide-classic names → current iconify "lucide:" set names.
+const ALIASES: Record<string, string> = {
+  'check-circle-2': 'circle-check-big',
+  'hand-helping': 'hand-helping',
+};
+
+const resolved = ALIASES[name] ?? name;
+---
+
+<AstroIcon name={`lucide:${resolved}`} {...rest} />

@@ -1,0 +1,189 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SubHero from '../components/SubHero.astro';
+import Heading from '../components/Heading.astro';
+import Button from '../components/Button.astro';
+import Icon from '../components/Icon.astro';
+import { site } from '../data/site';
+---
+
+<BaseLayout active="contact" title="Contact"
+  description="Reach Caring Hearts Care any time, day or night. Request a free consultation and a care coordinator will respond promptly — with answers, not pressure.">
+  <SubHero
+    title="Let’s talk about your family’s care"
+    intro="Reach out any time, day or night. A care coordinator will respond promptly — with answers, not pressure."
+    crumbs={[{ label: 'Home', href: '/' }, { label: 'Contact' }]} />
+
+  <section class="band band--cream">
+    <div class="wrap contact">
+      {/* Info column */}
+      <div class="contact__info">
+        <Heading eyebrow="Reach Us" title="We’re here 24 / 7" />
+        <div class="infoline">
+          <span class="infoline__icon"><Icon name="phone" /></span>
+          <div><b>Call us anytime</b><span>{site.phone} — available around the clock</span></div>
+        </div>
+        <div class="infoline">
+          <span class="infoline__icon"><Icon name="mail" /></span>
+          <div><b>Email</b><span>{site.email}</span></div>
+        </div>
+        <div class="infoline">
+          <span class="infoline__icon"><Icon name="map-pin" /></span>
+          <div><b>Service area</b><span>{site.serviceArea}</span></div>
+        </div>
+        <div class="infoline">
+          <span class="infoline__icon"><Icon name="clock" /></span>
+          <div><b>Hours</b><span>{site.hours}</span></div>
+        </div>
+        <div class="map"><Icon name="map" />Service-area map — Potomac &amp; the DMV</div>
+      </div>
+
+      {/* Form column */}
+      <div class="formcard">
+        <div id="form-success" class="formsuccess" hidden>
+          <div class="ok"><Icon name="check" /></div>
+          <h3 style="font-family:var(--font-serif);color:var(--chc-navy);font-size:1.6rem;margin:0 0 0.5rem;">Thank you<span id="success-name"></span>.</h3>
+          <p style="color:var(--text-muted);margin:0 auto;max-width:36ch;">A care coordinator will reach out shortly. If it’s urgent, call us 24/7 at {site.phone}.</p>
+          <div style="margin-top:1.6rem;">
+            <Button variant="secondary" id="send-another">Send another message</Button>
+          </div>
+        </div>
+
+        <form id="contact-form">
+          <Heading eyebrow="Free Consultation" title="Request a callback" />
+          <div style="height:1.4rem;"></div>
+
+          <input type="hidden" name="access_key" value={site.web3formsKey} />
+          <input type="hidden" name="subject" id="form-subject" value="New consultation request — Caring Hearts Care" />
+          <input type="hidden" name="from_name" value="Caring Hearts Care website" />
+          {/* honeypot */}
+          <input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off"
+            style="display:none;position:absolute;left:-9999px;" aria-hidden="true" />
+
+          <div class="field-row">
+            <div class="field">
+              <label for="name">Full name <span class="req">*</span></label>
+              <input id="name" name="name" required placeholder="Jane Doe" />
+            </div>
+            <div class="field">
+              <label for="phone">Phone <span class="req">*</span></label>
+              <input id="phone" name="phone" required type="tel" placeholder={site.phone} />
+            </div>
+          </div>
+          <div class="field">
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" placeholder="you@example.com" />
+          </div>
+          <div class="field">
+            <label for="service">Service needed</label>
+            <select id="service" name="service">
+              <option value="" disabled selected>Choose a service</option>
+              <option>Personal Care</option>
+              <option>Home Helper</option>
+              <option>Transportation</option>
+              <option>Companionship</option>
+              <option>Specialized Care</option>
+              <option>Manage Medications</option>
+              <option>Respite Care</option>
+              <option>Post-Cosmetic Care</option>
+              <option>Dementia Care</option>
+              <option>Careers / Employment</option>
+              <option>Not sure yet</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="message">How can we help your family?</label>
+            <textarea id="message" name="message" placeholder="Tell us a little about your situation..."></textarea>
+          </div>
+          <p id="form-error" class="form-error" hidden></p>
+          <Button variant="primary" size="lg" type="submit" id="submit-btn" class="btn-block">Request a Free Consultation</Button>
+          <p style="font-size:0.8rem;color:var(--text-muted);text-align:center;margin-top:0.9rem;">
+            <Icon name="lock" style="width:13px;height:13px;vertical-align:-2px;" /> Your information is private and never shared.
+          </p>
+        </form>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .btn-block { width: 100%; }
+  .form-error {
+    color: var(--color-error); font-family: var(--font-ui); font-size: 0.9rem;
+    margin: 0 0 0.8rem; text-align: center;
+  }
+</style>
+
+<script>
+  const form = document.getElementById('contact-form') as HTMLFormElement | null;
+  const success = document.getElementById('form-success');
+  const errorEl = document.getElementById('form-error');
+  const submitBtn = document.getElementById('submit-btn') as HTMLButtonElement | null;
+  const subjectField = document.getElementById('form-subject') as HTMLInputElement | null;
+  const serviceSelect = document.getElementById('service') as HTMLSelectElement | null;
+
+  // Careers deep-link: /contact?subject=Careers prefills the inquiry type.
+  const params = new URLSearchParams(window.location.search);
+  if (params.get('subject') === 'Careers') {
+    if (subjectField) subjectField.value = 'Caregiver application — Caring Hearts Care';
+    if (serviceSelect) {
+      const opt = Array.from(serviceSelect.options).find((o) => o.value === 'Careers / Employment');
+      if (opt) opt.selected = true;
+    }
+  }
+
+  function showError(msg: string) {
+    if (!errorEl) return;
+    errorEl.textContent = msg;
+    errorEl.hidden = false;
+  }
+
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (errorEl) errorEl.hidden = true;
+    const data = new FormData(form);
+
+    // Guard against the unconfigured placeholder key.
+    if (String(data.get('access_key')).startsWith('YOUR_')) {
+      showError('This form isn’t connected yet. Please call us, or try again soon.');
+      return;
+    }
+
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      submitBtn.querySelector('span')!.textContent = 'Sending…';
+    }
+
+    try {
+      const res = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { Accept: 'application/json' },
+        body: data,
+      });
+      const json = await res.json();
+      if (json.success) {
+        const name = String(data.get('name') || '').trim().split(' ')[0];
+        const nameEl = document.getElementById('success-name');
+        if (nameEl && name) nameEl.textContent = `, ${name}`;
+        form.hidden = true;
+        if (success) success.hidden = false;
+        success?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      } else {
+        showError(json.message || 'Something went wrong. Please try again or call us.');
+      }
+    } catch {
+      showError('Network error. Please try again, or call us 24/7.');
+    } finally {
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.querySelector('span')!.textContent = 'Request a Free Consultation';
+      }
+    }
+  });
+
+  document.getElementById('send-another')?.addEventListener('click', () => {
+    form?.reset();
+    if (form) form.hidden = false;
+    if (success) success.hidden = true;
+  });
+</script>

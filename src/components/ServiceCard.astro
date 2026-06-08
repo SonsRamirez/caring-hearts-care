@@ -1,0 +1,33 @@
+---
+/** ServiceCard — photo-topped or icon-medallion card linking to a service detail page. */
+import Icon from './Icon.astro';
+
+interface Props {
+  icon: string;
+  title: string;
+  description: string;
+  image?: string;
+  href: string;
+}
+const { icon, title, description, image, href } = Astro.props;
+---
+
+{image ? (
+  <a class="card card--lift service service--photo" href={href}>
+    <div class="service__photo" style={`background-image:url(${image})`}>
+      <span class="service__medal service__medal--onphoto"><Icon name={icon} /></span>
+    </div>
+    <div class="service__body">
+      <h3 class="service__title">{title}</h3>
+      <p class="service__desc">{description}</p>
+      <span class="service__link">Learn more<Icon name="arrow-right" /></span>
+    </div>
+  </a>
+) : (
+  <a class="card card--lift service" href={href}>
+    <div class="service__medal"><Icon name={icon} /></div>
+    <h3 class="service__title">{title}</h3>
+    <p class="service__desc">{description}</p>
+    <span class="service__link">Learn more<Icon name="arrow-right" /></span>
+  </a>
+)}

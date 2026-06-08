@@ -1,0 +1,44 @@
+/* Caring Hearts Care — Typography tokens
+   Tinos (serif display/headings) · Jost (sans body & nav) · Source Sans 3 (UI/buttons) */
+
+:root {
+  /* ---- Families ---- */
+  --font-serif: 'Tinos', 'Times New Roman', Georgia, serif;       /* headlines */
+  --font-sans: 'Jost', 'Helvetica Neue', Arial, sans-serif;        /* body & nav */
+  --font-ui: 'Source Sans 3', 'Jost', system-ui, sans-serif;      /* buttons & UI labels */
+
+  /* Semantic family aliases */
+  --font-heading: var(--font-serif);
+  --font-body: var(--font-sans);
+  --font-button: var(--font-ui);
+
+  /* ---- Type scale (rem, 1rem = 16px) ---- */
+  --text-display: 4.5rem;    /* 72 — hero headline */
+  --text-h1: 3.25rem;        /* 52 */
+  --text-h2: 2.5rem;         /* 40 — section titles */
+  --text-h3: 1.875rem;       /* 30 */
+  --text-h4: 1.375rem;       /* 22 — card titles */
+  --text-lead: 1.25rem;      /* 20 — intro / lead paragraph */
+  --text-base: 1.0625rem;    /* 17 — body default */
+  --text-sm: 0.9375rem;      /* 15 — small / meta */
+  --text-xs: 0.8125rem;      /* 13 — labels, eyebrow */
+
+  /* ---- Weights ---- */
+  --weight-light: 300;
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+
+  /* ---- Line heights ---- */
+  --leading-tight: 1.1;     /* display headlines */
+  --leading-snug: 1.25;     /* headings */
+  --leading-normal: 1.6;    /* body */
+  --leading-relaxed: 1.75;  /* long-form reading */
+
+  /* ---- Letter spacing ---- */
+  --tracking-tight: -0.02em;   /* large serif display */
+  --tracking-normal: 0;
+  --tracking-wide: 0.04em;     /* nav, buttons */
+  --tracking-eyebrow: 0.18em;  /* uppercase eyebrow labels */
+}

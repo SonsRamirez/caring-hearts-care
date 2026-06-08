@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# Update this to the production URL after deploy (or custom domain when live)
+Sitemap: https://caring-hearts-care.pages.dev/sitemap-index.xml

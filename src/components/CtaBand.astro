@@ -1,0 +1,31 @@
+---
+/** CtaBand — navy gradient conversion band (eyebrow → title → optional copy → CTAs). */
+import Eyebrow from './Eyebrow.astro';
+import Button from './Button.astro';
+import { site } from '../data/site';
+
+interface Props {
+  eyebrow?: string;
+  title: string;
+  intro?: string;
+  primaryLabel?: string;
+  primaryHref?: string;
+}
+const {
+  eyebrow = 'Start the Conversation',
+  title,
+  intro,
+  primaryLabel = 'Get In Touch',
+  primaryHref = '/contact',
+} = Astro.props;
+---
+
+<div class="ctaband">
+  <Eyebrow onDark>{eyebrow}</Eyebrow>
+  <h2>{title}</h2>
+  {intro && <p>{intro}</p>}
+  <div class="ctaband__row">
+    <Button variant="primary" size="lg" href={primaryHref}>{primaryLabel}</Button>
+    <Button variant="ghost-light" size="lg" icon="phone" href={site.phoneHref}>{site.phone}</Button>
+  </div>
+</div>

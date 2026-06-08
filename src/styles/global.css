@@ -1,0 +1,13 @@
+/* ============================================================
+   Caring Hearts Care — global stylesheet
+   Import order: fonts → tokens → base → kit layout/components.
+   Linked once from BaseLayout.astro.
+   ============================================================ */
+
+@import './tokens/fonts.css';
+@import './tokens/colors.css';
+@import './tokens/typography.css';
+@import './tokens/spacing.css';
+@import './tokens/effects.css';
+@import './tokens/base.css';
+@import './kit.css';

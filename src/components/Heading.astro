@@ -1,0 +1,23 @@
+---
+/** Heading — eyebrow → serif title → gold rule → intro. */
+import Eyebrow from './Eyebrow.astro';
+
+interface Props {
+  eyebrow?: string;
+  title: string;
+  intro?: string;
+  center?: boolean;
+  onDark?: boolean;
+}
+const { eyebrow, title, intro, center, onDark } = Astro.props;
+const cls = ['heading', center ? 'heading--center' : '', onDark ? 'heading--ondark' : '']
+  .filter(Boolean)
+  .join(' ');
+---
+
+<div class={cls}>
+  {eyebrow && <Eyebrow onDark={onDark}>{eyebrow}</Eyebrow>}
+  <h2 class="heading__title" set:html={title} />
+  <div class="heading__rule"></div>
+  {intro && <p class="heading__intro" set:html={intro} />}
+</div>

@@ -1,0 +1,76 @@
+---
+/** SiteFooter — brand blurb + CTA, services, company, contact, social. */
+import Button from './Button.astro';
+import Icon from './Icon.astro';
+import { site } from '../data/site';
+
+const FOOT_SERVICES = [
+  { label: 'Personal Care', href: '/services/personal-care' },
+  { label: 'Companionship', href: '/services/companionship' },
+  { label: 'Home Helper', href: '/services/home-helper' },
+  { label: 'Transportation', href: '/services/transportation' },
+  { label: 'Respite Care', href: '/services/respite-care' },
+  { label: 'Dementia Care', href: '/services/dementia-care' },
+];
+const FOOT_COMPANY = [
+  { label: 'About Us', href: '/about' },
+  { label: 'Our Services', href: '/services' },
+  { label: 'Pricing', href: '/pricing' },
+  { label: 'FAQ', href: '/faq' },
+  { label: 'Blog', href: '/blog' },
+  { label: 'Careers', href: '/careers' },
+];
+const year = new Date().getFullYear();
+---
+
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer__grid">
+      <div class="footer__brand">
+        <img src="/assets/logos/logo-white.png" alt="Caring Hearts Care" />
+        <p>{site.description}</p>
+        <div style="margin-top:1.4rem;">
+          <Button variant="primary" size="sm" href="/contact">Request a Free Consultation</Button>
+        </div>
+        <div class="footer__social">
+          <a href={site.social.facebook} target="_blank" rel="noopener" aria-label="Facebook"><Icon name="facebook" /></a>
+          <a href={site.social.instagram} target="_blank" rel="noopener" aria-label="Instagram"><Icon name="instagram" /></a>
+        </div>
+      </div>
+      <div>
+        <h4>Services</h4>
+        <ul>{FOOT_SERVICES.map((s) => <li><a href={s.href}>{s.label}</a></li>)}</ul>
+      </div>
+      <div>
+        <h4>Company</h4>
+        <ul>{FOOT_COMPANY.map((s) => <li><a href={s.href}>{s.label}</a></li>)}</ul>
+      </div>
+      <div>
+        <h4>Reach Us</h4>
+        <ul>
+          <li><a href={site.phoneHref}>{site.phone}</a></li>
+          <li><a href={`mailto:${site.email}`}>{site.email}</a></li>
+          <li>{site.location}</li>
+          <li>Open 24 / 7</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <span>&copy; {year} Caring Hearts Care. All rights reserved.</span>
+      <span>Insured &amp; bonded &middot; Background-checked caregivers</span>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer__social { display: flex; gap: 0.8rem; margin-top: 1.4rem; }
+  .footer__social a {
+    width: 38px; height: 38px; border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    display: inline-flex; align-items: center; justify-content: center;
+    color: var(--text-on-dark-muted);
+    transition: background var(--duration-base), color var(--duration-base), border-color var(--duration-base);
+  }
+  .footer__social a:hover { background: var(--chc-gold); color: var(--chc-navy); border-color: var(--chc-gold); }
+  .footer__social :global(svg) { width: 18px; height: 18px; }
+</style>

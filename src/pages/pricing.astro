@@ -1,0 +1,71 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SubHero from '../components/SubHero.astro';
+import Badge from '../components/Badge.astro';
+import Button from '../components/Button.astro';
+import Icon from '../components/Icon.astro';
+
+const TIERS = [
+  { name: 'Companion Care', icon: 'users', from: '28', popular: false,
+    blurb: 'Companionship, light help and supervision for a few hours a week.',
+    feats: ['Companionship & conversation', 'Light housekeeping & meals', 'Errands & transportation', 'Medication reminders', 'Flexible scheduling'] },
+  { name: 'Personal Care', icon: 'hand-helping', from: '34', popular: true,
+    blurb: 'Hands-on daily living support with a dedicated, matched caregiver.',
+    feats: ['Everything in Companion Care', 'Bathing, grooming & dressing', 'Mobility & transfer assistance', 'Personalized care plan', 'Dedicated care coordinator'] },
+  { name: '24/7 & Specialized', icon: 'shield-check', from: 'Custom', popular: false,
+    blurb: 'Around-the-clock or condition-specific care, fully tailored.',
+    feats: ['Everything in Personal Care', 'Live-in or 24-hour shifts', 'Dementia & Parkinson’s care', 'Post-surgery recovery', 'Care team with backup coverage'] },
+];
+---
+
+<BaseLayout active="pricing" title="Pricing"
+  description="Simple, transparent home-care pricing. Starting rates for companion, personal and 24/7 specialized care — your free consultation includes an exact quote.">
+  <SubHero
+    title="Simple, transparent care pricing"
+    intro="Every family is different, so every plan is custom. These starting rates give you a sense of what to expect — your free consultation includes an exact quote."
+    crumbs={[{ label: 'Home', href: '/' }, { label: 'Pricing' }]} />
+
+  <section class="band band--cream">
+    <div class="wrap">
+      <div class="grid-3" style="align-items:stretch;">
+        {TIERS.map((t) => (
+          <div class="card" style={`display:flex;flex-direction:column;gap:1rem;border-color:${t.popular ? 'var(--chc-gold)' : 'var(--chc-border)'};border-width:${t.popular ? '2px' : '1px'};box-shadow:${t.popular ? 'var(--shadow-md)' : 'var(--shadow-sm)'};`}>
+            <div style="display:flex;justify-content:space-between;align-items:center;">
+              <span class="feature__icon" style="background:var(--chc-gold-tint);color:var(--chc-gold-deep);"><Icon name={t.icon} /></span>
+              {t.popular && <Badge tone="gold">Most Popular</Badge>}
+            </div>
+            <h3 style="font-family:var(--font-serif);color:var(--chc-navy);font-size:1.6rem;margin:0;">{t.name}</h3>
+            <p style="margin:0;color:var(--text-muted);line-height:var(--leading-normal);">{t.blurb}</p>
+            <div style="display:flex;align-items:baseline;gap:0.4rem;">
+              {t.from === 'Custom' ? (
+                <span style="font-family:var(--font-serif);font-size:2.4rem;font-weight:700;color:var(--chc-navy);">Custom</span>
+              ) : (
+                <>
+                  <span style="font-family:var(--font-ui);color:var(--text-muted);">from</span>
+                  <span style="font-family:var(--font-serif);font-size:2.6rem;font-weight:700;color:var(--chc-navy);">${t.from}</span>
+                  <span style="font-family:var(--font-ui);color:var(--text-muted);">/hr</span>
+                </>
+              )}
+            </div>
+            <ul style="list-style:none;padding:0;margin:0.4rem 0 0;display:flex;flex-direction:column;gap:0.7rem;flex:1;">
+              {t.feats.map((f) => (
+                <li style="display:flex;gap:0.6rem;align-items:flex-start;color:var(--text-body);">
+                  <Icon name="check" style="width:18px;height:18px;color:var(--color-success);flex:none;margin-top:2px;" />
+                  <span>{f}</span>
+                </li>
+              ))}
+            </ul>
+            <Button variant={t.popular ? 'primary' : 'secondary'} href="/contact" class="btn-block">Get a Custom Quote</Button>
+          </div>
+        ))}
+      </div>
+      <p style="text-align:center;color:var(--text-muted);margin-top:2rem;font-size:0.95rem;">
+        Rates vary with care level, schedule and location. Long-term-care insurance and VA benefits accepted.
+      </p>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .btn-block { width: 100%; }
+</style>

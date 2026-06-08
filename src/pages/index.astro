@@ -1,0 +1,150 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Eyebrow from '../components/Eyebrow.astro';
+import Heading from '../components/Heading.astro';
+import Button from '../components/Button.astro';
+import ServiceCard from '../components/ServiceCard.astro';
+import Testimonial from '../components/Testimonial.astro';
+import Stat from '../components/Stat.astro';
+import CtaBand from '../components/CtaBand.astro';
+import Icon from '../components/Icon.astro';
+import { services } from '../data/services';
+import { site } from '../data/site';
+
+const homeServices = services.slice(0, 6);
+
+const PLEDGE = [
+  { b: 'Treated like our own', p: 'We promise to care for your family with the same love and dedication we’d give ours.' },
+  { b: 'We’ve been there', p: 'Founded by people who faced the struggle of finding the right care for a loved one.' },
+  { b: 'A perfect match', p: 'A caregiver matched to your loved one’s interests, personality and individual needs.' },
+  { b: 'Never alone in this', p: 'Compassionate, personalized care so you never feel alone on this journey.' },
+];
+
+const WHY = [
+  { icon: 'heart-handshake', h: 'Personalized Support', p: 'Every care plan is uniquely tailored to your needs, ensuring comfort and satisfaction in every aspect of our service.' },
+  { icon: 'users', h: 'Experienced Caregivers', p: 'Our caregivers are highly skilled and compassionate — matched with someone who truly understands and supports your family.' },
+  { icon: 'layout-grid', h: 'Comprehensive Services', p: 'From daily assistance to specialized care needs, our wide range of services meets every requirement with expertise and empathy.' },
+  { icon: 'shield-check', h: 'Rigorously Vetted', p: 'Background-checked, HHA-certified caregivers, with care plans guided by a licensed-nurse assessment.' },
+];
+
+const TESTIMONIALS = [
+  { quote: 'After my mother’s surgery, the post-cosmetic care she received was exactly what she needed for a smooth recovery. I can’t thank the team enough for their kindness and professionalism.', name: 'Emily S.', role: 'Daughter of a client' },
+  { quote: 'Their dementia care services have greatly improved my father’s quality of life, and the caregivers are not only highly skilled but genuinely caring. It’s comforting to know he is in good hands.', name: 'Michael T.', role: 'Son of a client' },
+  { quote: 'The respite care services have given me the peace of mind and breaks I desperately needed. Knowing my husband is receiving the best possible care is invaluable.', name: 'Sarah L.', role: 'Wife of a client' },
+];
+---
+
+<BaseLayout active="home" description={site.description}>
+  {/* Hero */}
+  <section class="hero">
+    <div class="wrap hero__grid">
+      <div>
+        <Eyebrow tick>Compassionate Home Care &middot; Potomac, MD</Eyebrow>
+        <h1 class="hero__title">Care that feels like <em>family</em>, right at home.</h1>
+        <p class="hero__sub">Maintaining dignity, self-worth and independence in the comforting embrace of your own home — trusted, personalized care across Potomac and the greater DC, MD &amp; VA area.</p>
+        <div class="hero__cta">
+          <Button variant="primary" size="lg" href="/contact">Get In Touch</Button>
+          <Button variant="secondary" size="lg" icon="phone" href={site.phoneHref}>Call Us 24/7</Button>
+        </div>
+        <div class="hero__trust">
+          <span><Icon name="check-circle-2" />Insured &amp; bonded</span>
+          <span><Icon name="check-circle-2" />Background-checked</span>
+          <span><Icon name="check-circle-2" />24/7 availability</span>
+        </div>
+      </div>
+      <div class="hero__media">
+        <div class="hero__photo" style="background-image:url(/assets/photos/hero-companionship-man.jpg)" role="img" aria-label="A caregiver sharing a warm moment with an elderly man at home"></div>
+        <div class="hero__badge">
+          <span class="ring"><Icon name="heart-handshake" /></span>
+          <span><b>Serving DC, MD &amp; VA</b><small>based in Potomac, Maryland</small></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {/* Services */}
+  <section class="band band--white">
+    <div class="wrap">
+      <div class="center-head">
+        <Heading center eyebrow="Our Services" title="Services tailored for you"
+          intro="Providing the full spectrum of home care to support your loved one’s independence and well-being." />
+      </div>
+      <div class="grid-3">
+        {homeServices.map((s) => (
+          <ServiceCard icon={s.icon} title={s.title} description={s.shortDesc} href={`/services/${s.id}`} />
+        ))}
+      </div>
+      <div style="text-align:center;margin-top:2.6rem;">
+        <Button variant="dark" href="/services" iconRight="arrow-right">View All Services</Button>
+      </div>
+    </div>
+  </section>
+
+  {/* Pledge band */}
+  <section class="band band--navy">
+    <div class="wrap pledge">
+      <div class="pledge__media">
+        <div class="pledge__photo" style="background-image:url(/assets/photos/pledge.jpg)" role="img" aria-label="A caregiver holding the hand of a senior client"></div>
+      </div>
+      <div>
+        <Heading onDark eyebrow="The Caring Hearts Pledge" title="Your Family Is Our Family" />
+        <div class="pledge__list">
+          {PLEDGE.map((it) => (
+            <div class="pledge__item">
+              <span class="tick"><Icon name="check" /></span>
+              <p><b>{it.b}</b>{it.p}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {/* Why us */}
+  <section class="band band--cream">
+    <div class="wrap">
+      <div class="center-head">
+        <Heading center eyebrow="Why Choose Us" title="Why families choose Caring Hearts Care"
+          intro="Discover the difference compassionate care makes." />
+      </div>
+      <div class="grid-2" style="gap:2.4rem 3rem;">
+        {WHY.map((w) => (
+          <div class="feature">
+            <div class="feature__icon"><Icon name={w.icon} /></div>
+            <div><h3>{w.h}</h3><p>{w.p}</p></div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  {/* Stats strip */}
+  <section class="band--tight band--white">
+    <div class="wrap grid-4" style="text-align:center;">
+      <Stat value="9" label="Home care services" />
+      <Stat value="DC·MD·VA" label="Service area" />
+      <Stat value="24/7" label="Availability" />
+      <Stat value="HHA" label="Certified caregivers" />
+    </div>
+  </section>
+
+  {/* Testimonials */}
+  <section class="band band--gray">
+    <div class="wrap">
+      <div class="center-head">
+        <Heading center eyebrow="Happy Clients" title="Testimonials from our families" />
+      </div>
+      <div class="grid-3">
+        {TESTIMONIALS.map((t) => <Testimonial quote={t.quote} name={t.name} role={t.role} />)}
+      </div>
+    </div>
+  </section>
+
+  {/* CTA band */}
+  <section class="band band--white">
+    <div class="wrap">
+      <CtaBand title="Caring starts with a conversation"
+        intro="Let’s talk about how we can help you or your loved one. Reach out today — we’re here to listen and guide you every step of the way." />
+    </div>
+  </section>
+</BaseLayout>

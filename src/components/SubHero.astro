@@ -1,0 +1,30 @@
+---
+/** SubHero — navy banner with breadcrumb + title, used atop interior pages. */
+interface Crumb {
+  label: string;
+  href?: string;
+}
+interface Props {
+  title: string;
+  intro?: string;
+  crumbs?: Crumb[];
+}
+const { title, intro, crumbs = [] } = Astro.props;
+---
+
+<section class="subhero">
+  <div class="wrap">
+    {crumbs.length > 0 && (
+      <div class="crumbs">
+        {crumbs.map((c, i) => (
+          <>
+            {c.href ? <a href={c.href}>{c.label}</a> : <span>{c.label}</span>}
+            {i < crumbs.length - 1 && <> &nbsp;/&nbsp; </>}
+          </>
+        ))}
+      </div>
+    )}
+    <h1 set:html={title} />
+    {intro && <p set:html={intro} />}
+  </div>
+</section>

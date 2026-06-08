@@ -1,0 +1,120 @@
+---
+/** SiteHeader — utility bar, logo, nav, CTAs, + mobile nav toggle. */
+import Logo from './Logo.astro';
+import Button from './Button.astro';
+import Icon from './Icon.astro';
+import { site } from '../data/site';
+
+interface Props {
+  active?: string;
+}
+const { active } = Astro.props;
+
+const NAV = [
+  { id: 'home', label: 'Home', href: '/' },
+  { id: 'about', label: 'About', href: '/about' },
+  { id: 'services', label: 'Services', href: '/services' },
+  { id: 'pricing', label: 'Pricing', href: '/pricing' },
+  { id: 'faq', label: 'FAQ', href: '/faq' },
+  { id: 'contact', label: 'Contact', href: '/contact' },
+];
+---
+
+<header>
+  <div class="utilbar">
+    <div class="wrap utilbar__in">
+      <div class="utilbar__left">
+        <span><Icon name="map-pin" />Potomac, MD &amp; the greater DC area</span>
+        <span><Icon name="clock" />Available 24 / 7</span>
+      </div>
+      <a class="utilbar__phone" href={site.phoneHref}><Icon name="phone" />{site.phone}</a>
+    </div>
+  </div>
+  <div class="header">
+    <div class="wrap header__in">
+      <Logo variant="navy" />
+      <nav class="nav">
+        {NAV.map((n) => (
+          <a href={n.href} class={active === n.id ? 'is-active' : ''}>{n.label}</a>
+        ))}
+      </nav>
+      <div class="header__cta">
+        <Button variant="dark" size="sm" icon="phone" href={site.phoneHref}>Call Us 24/7</Button>
+        <Button variant="primary" size="sm" href="/contact">Free Consultation</Button>
+      </div>
+      <button class="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-nav">
+        <Icon name="menu" />
+      </button>
+    </div>
+  </div>
+  <nav class="mobile-nav" id="mobile-nav" hidden>
+    {NAV.map((n) => (
+      <a href={n.href} class={active === n.id ? 'is-active' : ''}>{n.label}</a>
+    ))}
+    <a href="/contact" class="mobile-nav__cta">Request a Free Consultation</a>
+  </nav>
+</header>
+
+<style>
+  /* Mobile nav — shown only at the kit's <=900px breakpoint where .nav hides */
+  .nav-toggle {
+    display: none;
+    background: none;
+    border: 0;
+    cursor: pointer;
+    color: var(--chc-navy);
+    padding: 0.4rem;
+  }
+  .nav-toggle :global(svg) { width: 28px; height: 28px; }
+  .mobile-nav { display: none; }
+  @media (max-width: 900px) {
+    .nav-toggle { display: inline-flex; }
+    .header__cta { display: none; }
+    .mobile-nav {
+      display: flex;
+      flex-direction: column;
+      background: var(--chc-white);
+      border-bottom: 1px solid var(--chc-border);
+      padding: var(--space-4) var(--gutter);
+      gap: 0.25rem;
+      position: sticky;
+      top: 84px;
+      z-index: 49;
+    }
+    .mobile-nav[hidden] { display: none; }
+    .mobile-nav a {
+      font-family: var(--font-body);
+      font-weight: 500;
+      color: var(--chc-navy);
+      padding: 0.7rem 0;
+      border-bottom: 1px solid var(--chc-border);
+    }
+    .mobile-nav a.is-active { color: var(--chc-gold-deep); }
+    .mobile-nav__cta {
+      margin-top: 0.6rem;
+      border-bottom: 0 !important;
+      background: var(--chc-gold);
+      color: var(--chc-navy) !important;
+      text-align: center;
+      border-radius: var(--radius-pill);
+      padding: 0.7rem 1rem !important;
+      font-family: var(--font-button);
+      font-weight: 700;
+    }
+  }
+</style>
+
+<script>
+  const toggle = document.querySelector('.nav-toggle');
+  const menu = document.getElementById('mobile-nav');
+  toggle?.addEventListener('click', () => {
+    const open = menu?.hasAttribute('hidden');
+    if (open) {
+      menu?.removeAttribute('hidden');
+      toggle?.setAttribute('aria-expanded', 'true');
+    } else {
+      menu?.setAttribute('hidden', '');
+      toggle?.setAttribute('aria-expanded', 'false');
+    }
+  });
+</script>
