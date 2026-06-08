@@ -1,0 +1,70 @@
+/* ============================================================
+   Caring Hearts Care — mobile refinements
+   The base kit.css only breaks at 900px and never scales the large
+   type or collapses every grid. This layer fixes horizontal overflow
+   and tightens type/spacing for phones. Loaded last (after kit.css).
+   ============================================================ */
+
+/* Kill any sideways scroll from decorative negative offsets.
+   `clip` (not `hidden`) so it doesn't break the sticky header. */
+html { overflow-x: clip; }
+body { overflow-x: clip; max-width: 100%; }
+img { max-width: 100%; height: auto; }
+
+/* ---- Tablet / small laptop ---- */
+@media (max-width: 900px) {
+  /* Footer collapses from 4 cols (was unchanged → overflow on phones) */
+  .footer__grid { grid-template-columns: 1fr 1fr; gap: var(--space-6); }
+  .footer__bottom { flex-direction: column; gap: 0.6rem; text-align: center; }
+}
+
+/* ---- Phones ---- */
+@media (max-width: 600px) {
+  :root { --gutter: 1.25rem; }
+
+  /* All multi-col grids stack */
+  .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+  .footer__grid { grid-template-columns: 1fr; gap: var(--space-5); }
+
+  /* Hide the cramped top utility bar on phones (its CTA also lives in the mobile menu) */
+  .utilbar { display: none; }
+
+  /* Hero: scale the display type down so big words can't overflow */
+  .hero__grid { padding-block: var(--space-7); gap: var(--space-6); }
+  .hero__title { font-size: clamp(2.4rem, 11vw, 3.1rem); line-height: 1.08; }
+  .hero__sub { font-size: var(--text-base); max-width: none; }
+  .hero__photo { height: 320px; }
+  .hero__cta .btn { flex: 1 1 auto; }       /* CTAs fill the row instead of overflowing */
+  .hero__trust { gap: 1rem 1.2rem; }
+
+  /* The floating badge sat at left:-22px → off-screen. Re-anchor inside. */
+  .hero__badge { left: 12px; right: 12px; bottom: 12px; }
+  .about-founder__plate { left: 12px; }
+
+  /* Section rhythm tighter on phones */
+  .band { padding: var(--space-7) 0; }
+  .band--tight { padding: var(--space-6) 0; }
+
+  /* Headings scale down */
+  .heading__title { font-size: var(--text-h3); }
+  .subhero { padding: var(--space-7) 0; }
+  .subhero h1 { font-size: var(--text-h2); }
+  .subhero p { font-size: var(--text-base); }
+
+  /* CTA band: less padding, smaller title, full-width buttons */
+  .ctaband { padding: var(--space-6) var(--space-5); }
+  .ctaband h2 { font-size: var(--text-h3); }
+  .ctaband__row { width: 100%; flex-direction: column; }
+  .ctaband__row .btn { width: 100%; }
+
+  /* Service detail + about media heights */
+  .sd-photo { height: 320px; }
+  .about-founder__photo { height: 420px; }
+
+  /* Featured blog post stacks cleanly */
+  .post--featured .post__title { font-size: 1.5rem; }
+
+  /* Article prose a touch smaller */
+  .prose-p { font-size: 1.05rem; }
+  .prose-quote { font-size: 1.35rem; }
+}
