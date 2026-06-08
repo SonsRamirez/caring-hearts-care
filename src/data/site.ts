@@ -30,7 +30,7 @@ export const site = {
   // --- Forms ---
   // Replace with your Web3Forms access key (https://web3forms.com). Leave as-is to
   // build; forms won't deliver until a real key is set.
-  web3formsKey: 'YOUR_WEB3FORMS_ACCESS_KEY',
+  web3formsKey: '48854a57-d5ad-4c4c-9a43-c632c8b5f198',
 };
 
 export type Site = typeof site;
