@@ -32,8 +32,8 @@ section { position: relative; }
 .btn--secondary:hover { background: var(--chc-navy); color: #fff; }
 .btn--dark { background: var(--chc-navy); color: #fff; border-color: var(--chc-navy); }
 .btn--dark:hover { background: var(--chc-navy-mid); border-color: var(--chc-navy-mid); transform: translateY(-1px); }
-.btn--ghost-light { background: transparent; color: #fff; border-color: rgba(255,255,255,0.4); }
-.btn--ghost-light:hover { background: rgba(255,255,255,0.1); border-color: #fff; }
+.btn--ghost-light { background: transparent; color: #fff; border-color: rgba(255,255,255,0.5); }
+.btn--ghost-light:hover { background: rgba(255,255,255,0.14); border-color: #fff; color: #fff; transform: translateY(-1px); }
 .btn svg { width: 18px; height: 18px; }
 
 /* ---------- Eyebrow / heading ---------- */
