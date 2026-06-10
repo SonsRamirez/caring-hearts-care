@@ -27,7 +27,7 @@ export const services: Service[] = [
     id: 'personal-care',
     icon: 'hand-helping',
     title: 'Personal Care',
-    image: '/assets/photos/caregiver-doorway.jpg',
+    image: '/assets/photos/services/personal-care.jpg',
     description:
       'Our Personal Care service is designed to support clients in their daily routines with dignity and respect. Assistance includes bathing, grooming, dressing, and toileting, catering to each individual’s personal needs and preferences. This service ensures clients can maintain their hygiene and appearance with confidence and comfort.',
   },
@@ -35,7 +35,7 @@ export const services: Service[] = [
     id: 'meal-preparation',
     icon: 'utensils',
     title: 'Meal Preparation',
-    image: '/assets/photos/home-helper.jpg',
+    image: '/assets/photos/services/meal-preparation.jpg',
     description:
       'Our Meal Preparation service involves planning and preparing nutritious meals that cater to the dietary needs and preferences of our clients. From grocery shopping to cooking, we take care of all aspects of mealtime, ensuring clients enjoy healthy, delicious meals every day.',
   },
@@ -43,7 +43,7 @@ export const services: Service[] = [
     id: 'transportation',
     icon: 'car',
     title: 'Transportation',
-    image: '/assets/photos/transportation.jpg',
+    image: '/assets/photos/services/transportation.jpg',
     description:
       'Our Transportation service provides clients with safe and reliable escorting to medical appointments, grocery shopping, errands, and social outings. This service ensures clients remain active and connected with their community, maintaining independence in their daily activities.',
   },
@@ -51,7 +51,7 @@ export const services: Service[] = [
     id: 'companionship',
     icon: 'users',
     title: 'Companionship',
-    image: '/assets/photos/companionship-woman.jpg',
+    image: '/assets/photos/services/companionship.jpg',
     description:
       'The Companionship service provides clients with meaningful social interaction, engaging conversation, and emotional support. This vital service aims to alleviate loneliness, enhance well-being, and promote a positive outlook on life by connecting clients with compassionate caregivers for companionship and activities that bring joy.',
   },
@@ -59,7 +59,7 @@ export const services: Service[] = [
     id: 'light-housekeeping',
     icon: 'sparkles',
     title: 'Light Housekeeping',
-    image: '/assets/photos/home-helper.jpg',
+    image: '/assets/photos/services/light-housekeeping.jpg',
     description:
       'The Light Housekeeping service assists clients with maintaining a clean and orderly home environment. Tasks include laundry, vacuuming, and tidying up living spaces, contributing to a pleasant and safe living area that clients can enjoy and be proud of.',
   },
@@ -67,7 +67,7 @@ export const services: Service[] = [
     id: 'manage-medications',
     icon: 'pill',
     title: 'Manage Medications',
-    image: '/assets/photos/medication.jpg',
+    image: '/assets/photos/services/manage-medications.jpg',
     description:
       'With Medication Management, we offer meticulous reminders for clients to take their medications according to their prescribed schedule, along with assistance in medication administration if required. This service prioritizes the client’s health and well-being, ensuring medications are taken safely and effectively.',
   },
@@ -75,7 +75,7 @@ export const services: Service[] = [
     id: 'respite-care',
     icon: 'coffee',
     title: 'Respite Care',
-    image: '/assets/photos/respite-care.jpg',
+    image: '/assets/photos/services/respite-care.jpg',
     description:
       'Respite Care offers temporary relief to family caregivers, allowing them time to rest, recharge, or attend to their own needs. This service supports the well-being of both clients and their families, ensuring continuous, high-quality care even in the caregiver’s absence.',
   },
@@ -83,7 +83,7 @@ export const services: Service[] = [
     id: 'post-cosmetic-care',
     icon: 'bandage',
     title: 'Post-Cosmetic Care',
-    image: '/assets/photos/post-cosmetic-care.jpg',
+    image: '/assets/photos/services/post-cosmetic-care.jpg',
     description:
       'Specializing in Post-Cosmetic Care, we provide dedicated support and assistance to individuals recovering from cosmetic surgery. Tailored to each client’s specific needs and recovery goals, this service focuses on comfortable and safe healing at home, with close coordination with healthcare providers for a smooth recovery process.',
   },
@@ -91,7 +91,7 @@ export const services: Service[] = [
     id: 'dementia-care',
     icon: 'brain',
     title: 'Dementia Care',
-    image: '/assets/photos/dementia-care.jpg',
+    image: '/assets/photos/services/dementia-care.jpg',
     description:
       'Our Dementia Care service offers specialized attention and support to individuals living with Alzheimer’s disease or other forms of dementia. Focused on cognitive stimulation and behavioral management, our caregivers are trained to enhance the quality of life for clients with dementia, ensuring a safe, supportive, and understanding environment.',
   },
