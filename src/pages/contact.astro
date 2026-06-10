@@ -8,34 +8,30 @@ import { site } from '../data/site';
 ---
 
 <BaseLayout active="contact" title="Contact"
-  description="Reach Caring Hearts Care any time, day or night. Request a free consultation and a care coordinator will respond promptly — with answers, not pressure.">
+  description="At Caring Hearts Care, we’re always eager to connect with new clients. Submit the contact form and a care coordinator will respond promptly — the first step toward compassionate, personalized care.">
   <SubHero
-    title="Let’s talk about your family’s care"
-    intro="Reach out any time, day or night. A care coordinator will respond promptly — with answers, not pressure."
-    crumbs={[{ label: 'Home', href: '/' }, { label: 'Contact' }]} />
+    title="Get In Touch"
+    crumbs={[{ label: 'Home', href: '/' }, { label: 'Contact Us' }]} />
 
+  {/* Reach Out Today */}
   <section class="band band--cream">
-    <div class="wrap contact">
-      {/* Info column */}
-      <div class="contact__info">
-        <Heading eyebrow="Reach Us" title="We’re here 24 / 7" />
-        <div class="infoline">
-          <span class="infoline__icon"><Icon name="message-circle" /></span>
-          <div><b>Send us a message</b><span>Fill out the form and a care coordinator will respond promptly — day or night.</span></div>
-        </div>
-        <div class="infoline">
-          <span class="infoline__icon"><Icon name="map-pin" /></span>
-          <div><b>Service area</b><span>{site.serviceArea}</span></div>
-        </div>
-        <div class="infoline">
-          <span class="infoline__icon"><Icon name="clock" /></span>
-          <div><b>Availability</b><span>{site.hours}</span></div>
-        </div>
-        <div class="map"><Icon name="map" />Service-area map — Potomac &amp; the DMV</div>
+    <div class="wrap" style="max-width:64rem;text-align:center;">
+      <div class="center-head">
+        <Heading center eyebrow="Reach Out Today" title="Don’t hesitate to contact us" />
+      </div>
+      <p style="color:var(--text-muted);line-height:var(--leading-relaxed);">At Caring Hearts Care, we’re always eager to connect with new clients and learn how we can support you and your loved ones. By simply submitting the form on our contact page, you’ll take the first step toward accessing compassionate, personalized care tailored to your needs. We’re excited about the opportunity to provide exceptional care for your loved one, and the journey begins as soon as you share your information with us. Rest assured, we’re dedicated to ensuring this process is smooth and responsive, starting with your initial inquiry. Your peace of mind and your loved one’s well-being are our top priorities, and we look forward to starting this important journey with you.</p>
+    </div>
+  </section>
+
+  {/* Send Us a Message */}
+  <section class="band band--white">
+    <div class="wrap" style="max-width:50rem;">
+      <div class="center-head">
+        <Heading center eyebrow="Send Us a Message" title="Let’s start the conversation"
+          intro="Submit the contact form now, and let’s start the conversation on how we can provide exceptional care for your loved one." />
       </div>
 
-      {/* Form column */}
-      <div class="formcard">
+      <div class="formcard" style="margin-top:1rem;">
         <div id="form-success" class="formsuccess" hidden>
           <div class="ok"><Icon name="check" /></div>
           <h3 style="font-family:var(--font-serif);color:var(--chc-navy);font-size:1.6rem;margin:0 0 0.5rem;">Thank you<span id="success-name"></span>.</h3>
@@ -46,11 +42,7 @@ import { site } from '../data/site';
         </div>
 
         <form id="contact-form">
-          <Heading eyebrow="Free Consultation" title="Request a callback" />
-          <div style="height:1.4rem;"></div>
-
           <input type="hidden" name="access_key" value={site.web3formsKey} />
-          <input type="hidden" name="subject" id="form-subject" value="New consultation request — Caring Hearts Care" />
           <input type="hidden" name="from_name" value="Caring Hearts Care website" />
           {/* honeypot */}
           <input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off"
@@ -58,41 +50,30 @@ import { site } from '../data/site';
 
           <div class="field-row">
             <div class="field">
-              <label for="name">Full name <span class="req">*</span></label>
-              <input id="name" name="name" required placeholder="Jane Doe" />
+              <label for="name">Name <span class="req">*</span></label>
+              <input id="name" name="name" required placeholder="Name" />
             </div>
             <div class="field">
-              <label for="phone">Phone <span class="req">*</span></label>
-              <input id="phone" name="phone" required type="tel" placeholder="Best number to reach you" />
+              <label for="phone">Phone</label>
+              <input id="phone" name="phone" type="tel" placeholder="Phone" />
+            </div>
+          </div>
+          <div class="field-row">
+            <div class="field">
+              <label for="email">Email</label>
+              <input id="email" name="email" type="email" placeholder="Email" />
+            </div>
+            <div class="field">
+              <label for="subject">Subject</label>
+              <input id="subject" name="subject" placeholder="Subject" />
             </div>
           </div>
           <div class="field">
-            <label for="email">Email</label>
-            <input id="email" name="email" type="email" placeholder="you@example.com" />
-          </div>
-          <div class="field">
-            <label for="service">Service needed</label>
-            <select id="service" name="service">
-              <option value="" disabled selected>Choose a service</option>
-              <option>Personal Care</option>
-              <option>Home Helper</option>
-              <option>Transportation</option>
-              <option>Companionship</option>
-              <option>Specialized Care</option>
-              <option>Manage Medications</option>
-              <option>Respite Care</option>
-              <option>Post-Cosmetic Care</option>
-              <option>Dementia Care</option>
-              <option>Careers / Employment</option>
-              <option>Not sure yet</option>
-            </select>
-          </div>
-          <div class="field">
-            <label for="message">How can we help your family?</label>
-            <textarea id="message" name="message" placeholder="Tell us a little about your situation..."></textarea>
+            <label for="message">Message</label>
+            <textarea id="message" name="message" placeholder="Message"></textarea>
           </div>
           <p id="form-error" class="form-error" hidden></p>
-          <Button variant="primary" size="lg" type="submit" id="submit-btn" class="btn-block">Request a Free Consultation</Button>
+          <Button variant="primary" size="lg" type="submit" id="submit-btn" class="btn-block">Submit</Button>
           <p style="font-size:0.8rem;color:var(--text-muted);text-align:center;margin-top:0.9rem;">
             <Icon name="lock" style="width:13px;height:13px;vertical-align:-2px;" /> Your information is private and never shared.
           </p>
@@ -115,18 +96,6 @@ import { site } from '../data/site';
   const success = document.getElementById('form-success');
   const errorEl = document.getElementById('form-error');
   const submitBtn = document.getElementById('submit-btn') as HTMLButtonElement | null;
-  const subjectField = document.getElementById('form-subject') as HTMLInputElement | null;
-  const serviceSelect = document.getElementById('service') as HTMLSelectElement | null;
-
-  // Careers deep-link: /contact?subject=Careers prefills the inquiry type.
-  const params = new URLSearchParams(window.location.search);
-  if (params.get('subject') === 'Careers') {
-    if (subjectField) subjectField.value = 'Caregiver application — Caring Hearts Care';
-    if (serviceSelect) {
-      const opt = Array.from(serviceSelect.options).find((o) => o.value === 'Careers / Employment');
-      if (opt) opt.selected = true;
-    }
-  }
 
   function showError(msg: string) {
     if (!errorEl) return;
@@ -139,7 +108,6 @@ import { site } from '../data/site';
     if (errorEl) errorEl.hidden = true;
     const data = new FormData(form);
 
-    // Guard against the unconfigured placeholder key.
     if (String(data.get('access_key')).startsWith('YOUR_')) {
       showError('This form isn’t connected yet. Please try again soon.');
       return;
@@ -172,7 +140,7 @@ import { site } from '../data/site';
     } finally {
       if (submitBtn) {
         submitBtn.disabled = false;
-        submitBtn.querySelector('span')!.textContent = 'Request a Free Consultation';
+        submitBtn.querySelector('span')!.textContent = 'Submit';
       }
     }
   });

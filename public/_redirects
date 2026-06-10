@@ -1,0 +1,13 @@
+# Cloudflare Pages redirects.
+# The new site matches caringheartscare.com's URLs 1:1, so no redirects are needed for
+# real pages or posts. These only catch a few legacy WordPress paths that have no equivalent
+# on the new site, so old links/bookmarks land somewhere sensible instead of 404-ing.
+
+# WordPress category archives (no category pages on the new site) -> the blog index
+/category/*        /blog       301
+
+# Old unfinished/duplicate WordPress drafts that were intentionally not ported
+/home-new          /           301
+/home-new/         /           301
+/career-detail     /careers    301
+/career-detail/    /careers    301

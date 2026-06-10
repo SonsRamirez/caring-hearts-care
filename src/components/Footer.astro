@@ -5,12 +5,12 @@ import Icon from './Icon.astro';
 import { site } from '../data/site';
 
 const FOOT_SERVICES = [
-  { label: 'Personal Care', href: '/services/personal-care' },
-  { label: 'Companionship', href: '/services/companionship' },
-  { label: 'Home Helper', href: '/services/home-helper' },
-  { label: 'Transportation', href: '/services/transportation' },
-  { label: 'Respite Care', href: '/services/respite-care' },
-  { label: 'Dementia Care', href: '/services/dementia-care' },
+  { label: 'Personal Care', href: '/services' },
+  { label: 'Companionship', href: '/services' },
+  { label: 'Meal Preparation', href: '/services' },
+  { label: 'Transportation', href: '/services' },
+  { label: 'Respite Care', href: '/services' },
+  { label: 'Dementia Care', href: '/services' },
 ];
 const FOOT_COMPANY = [
   { label: 'About Us', href: '/about' },
@@ -20,7 +20,6 @@ const FOOT_COMPANY = [
   { label: 'Blog', href: '/blog' },
   { label: 'Careers', href: '/careers' },
 ];
-const year = new Date().getFullYear();
 ---
 
 <footer class="footer">
@@ -56,8 +55,8 @@ const year = new Date().getFullYear();
       </div>
     </div>
     <div class="footer__bottom">
-      <span>&copy; {year} Caring Hearts Care. All rights reserved.</span>
-      <span>Insured &amp; bonded &middot; Background-checked caregivers</span>
+      <span>Caring Hearts Care &copy; 2024. Where compassion meets quality care, we’re here to support you and your loved ones every step of the way.</span>
+      <span>Website Developed and Maintained by Dominique Ramirez.</span>
     </div>
   </div>
 </footer>

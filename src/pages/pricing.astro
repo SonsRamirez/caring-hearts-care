@@ -1,71 +1,84 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import SubHero from '../components/SubHero.astro';
-import Badge from '../components/Badge.astro';
+import Heading from '../components/Heading.astro';
 import Button from '../components/Button.astro';
-import Icon from '../components/Icon.astro';
-
-const TIERS = [
-  { name: 'Companion Care', icon: 'users', from: '28', popular: false,
-    blurb: 'Companionship, light help and supervision for a few hours a week.',
-    feats: ['Companionship & conversation', 'Light housekeeping & meals', 'Errands & transportation', 'Medication reminders', 'Flexible scheduling'] },
-  { name: 'Personal Care', icon: 'hand-helping', from: '34', popular: true,
-    blurb: 'Hands-on daily living support with a dedicated, matched caregiver.',
-    feats: ['Everything in Companion Care', 'Bathing, grooming & dressing', 'Mobility & transfer assistance', 'Personalized care plan', 'Dedicated care coordinator'] },
-  { name: '24/7 & Specialized', icon: 'shield-check', from: 'Custom', popular: false,
-    blurb: 'Around-the-clock or condition-specific care, fully tailored.',
-    feats: ['Everything in Personal Care', 'Live-in or 24-hour shifts', 'Dementia & Parkinson’s care', 'Post-surgery recovery', 'Care team with backup coverage'] },
-];
+import { site } from '../data/site';
 ---
 
 <BaseLayout active="pricing" title="Pricing"
-  description="Simple, transparent home-care pricing. Starting rates for companion, personal and 24/7 specialized care — your free consultation includes an exact quote.">
+  description="At Caring Hearts Care, pricing is tailored to each client. The process begins with an initial interview to determine your specific needs, after which we provide a customized quote.">
   <SubHero
-    title="Simple, transparent care pricing"
-    intro="Every family is different, so every plan is custom. These starting rates give you a sense of what to expect — your free consultation includes an exact quote."
+    title="Pricing Plan"
     crumbs={[{ label: 'Home', href: '/' }, { label: 'Pricing' }]} />
 
   <section class="band band--cream">
-    <div class="wrap">
-      <div class="grid-3" style="align-items:stretch;">
-        {TIERS.map((t) => (
-          <div class="card" style={`display:flex;flex-direction:column;gap:1rem;border-color:${t.popular ? 'var(--chc-gold)' : 'var(--chc-border)'};border-width:${t.popular ? '2px' : '1px'};box-shadow:${t.popular ? 'var(--shadow-md)' : 'var(--shadow-sm)'};`}>
-            <div style="display:flex;justify-content:space-between;align-items:center;">
-              <span class="feature__icon" style="background:var(--chc-gold-tint);color:var(--chc-gold-deep);"><Icon name={t.icon} /></span>
-              {t.popular && <Badge tone="gold">Most Popular</Badge>}
-            </div>
-            <h3 style="font-family:var(--font-serif);color:var(--chc-navy);font-size:1.6rem;margin:0;">{t.name}</h3>
-            <p style="margin:0;color:var(--text-muted);line-height:var(--leading-normal);">{t.blurb}</p>
-            <div style="display:flex;align-items:baseline;gap:0.4rem;">
-              {t.from === 'Custom' ? (
-                <span style="font-family:var(--font-serif);font-size:2.4rem;font-weight:700;color:var(--chc-navy);">Custom</span>
-              ) : (
-                <>
-                  <span style="font-family:var(--font-ui);color:var(--text-muted);">from</span>
-                  <span style="font-family:var(--font-serif);font-size:2.6rem;font-weight:700;color:var(--chc-navy);">${t.from}</span>
-                  <span style="font-family:var(--font-ui);color:var(--text-muted);">/hr</span>
-                </>
-              )}
-            </div>
-            <ul style="list-style:none;padding:0;margin:0.4rem 0 0;display:flex;flex-direction:column;gap:0.7rem;flex:1;">
-              {t.feats.map((f) => (
-                <li style="display:flex;gap:0.6rem;align-items:flex-start;color:var(--text-body);">
-                  <Icon name="check" style="width:18px;height:18px;color:var(--color-success);flex:none;margin-top:2px;" />
-                  <span>{f}</span>
-                </li>
-              ))}
-            </ul>
-            <Button variant={t.popular ? 'primary' : 'secondary'} href="/contact" class="btn-block">Get a Custom Quote</Button>
-          </div>
-        ))}
+    <div class="wrap" style="max-width:60rem;text-align:center;">
+      <div class="center-head">
+        <Heading center eyebrow="Our Pricing" title="Tailored Pricing Plans for Personalized Care" />
       </div>
-      <p style="text-align:center;color:var(--text-muted);margin-top:2rem;font-size:0.95rem;">
-        Rates vary with care level, schedule and location. Long-term-care insurance and VA benefits accepted.
-      </p>
+      <p style="color:var(--text-muted);line-height:var(--leading-relaxed);">At Caring Hearts Care, we understand that each client’s needs are unique, and our pricing plans reflect this principle. Rather than offering one-size-fits-all packages, we tailor our pricing specifically to the individual requirements of each client. This personalized approach ensures that you receive the most effective and efficient care possible, without any unnecessary costs. The process begins with an initial interview to determine your specific needs, after which we will provide a customized quote for our services. If you’re ready to explore how we can support you or your loved one, please click the yellow “Contact Us” button or fill in the form to get started. We’ll be in touch as soon as possible to set up your care and answer any questions you may have.</p>
+      <div style="margin-top:1.6rem;">
+        <Button variant="primary" href="/contact">Contact Us</Button>
+      </div>
+    </div>
+  </section>
+
+  <section class="band band--white">
+    <div class="wrap" style="max-width:50rem;">
+      <div class="center-head">
+        <Heading center eyebrow="Send Us a Message" title="Customized Solutions to Meet Your Unique Needs" />
+      </div>
+      <form id="pricing-contact-form" class="formcard" style="margin-top:1rem;">
+        <input type="hidden" name="access_key" value={site.web3formsKey} />
+        <input type="hidden" name="from_name" value="Caring Hearts Care website — Pricing" />
+        <input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" style="display:none;position:absolute;left:-9999px;" aria-hidden="true" />
+        <div class="field-row">
+          <div class="field"><label for="p-name">Name <span class="req">*</span></label><input id="p-name" name="name" required placeholder="Name" /></div>
+          <div class="field"><label for="p-phone">Phone</label><input id="p-phone" name="phone" type="tel" placeholder="Phone" /></div>
+        </div>
+        <div class="field-row">
+          <div class="field"><label for="p-email">Email</label><input id="p-email" name="email" type="email" placeholder="Email" /></div>
+          <div class="field"><label for="p-subject">Subject</label><input id="p-subject" name="subject" placeholder="Subject" /></div>
+        </div>
+        <div class="field"><label for="p-message">Message</label><textarea id="p-message" name="message" placeholder="Message"></textarea></div>
+        <p id="pricing-form-error" class="form-error" hidden></p>
+        <p id="pricing-form-ok" class="form-ok" hidden>Thank you — a care coordinator will reach out shortly.</p>
+        <Button variant="primary" size="lg" type="submit" id="pricing-submit" class="btn-block">Submit</Button>
+      </form>
     </div>
   </section>
 </BaseLayout>
 
 <style>
   .btn-block { width: 100%; }
+  .form-error { color: var(--color-error); text-align: center; margin: 0 0 0.8rem; }
+  .form-ok { color: var(--color-success, #2e7d32); text-align: center; margin: 0 0 0.8rem; }
 </style>
+
+<script>
+  const form = document.getElementById('pricing-contact-form') as HTMLFormElement | null;
+  const err = document.getElementById('pricing-form-error');
+  const ok = document.getElementById('pricing-form-ok');
+  const btn = document.getElementById('pricing-submit') as HTMLButtonElement | null;
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (err) err.hidden = true;
+    const data = new FormData(form);
+    if (String(data.get('access_key')).startsWith('YOUR_')) {
+      if (err) { err.textContent = 'This form isn’t connected yet. Please try again soon.'; err.hidden = false; }
+      return;
+    }
+    if (btn) { btn.disabled = true; btn.querySelector('span')!.textContent = 'Sending…'; }
+    try {
+      const res = await fetch('https://api.web3forms.com/submit', { method: 'POST', headers: { Accept: 'application/json' }, body: data });
+      const json = await res.json();
+      if (json.success) { form.reset(); if (ok) ok.hidden = false; }
+      else if (err) { err.textContent = json.message || 'Something went wrong. Please try again.'; err.hidden = false; }
+    } catch {
+      if (err) { err.textContent = 'Network error. Please check your connection and try again.'; err.hidden = false; }
+    } finally {
+      if (btn) { btn.disabled = false; btn.querySelector('span')!.textContent = 'Submit'; }
+    }
+  });
+</script>

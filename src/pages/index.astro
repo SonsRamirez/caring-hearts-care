@@ -5,147 +5,353 @@ import Heading from '../components/Heading.astro';
 import Button from '../components/Button.astro';
 import ServiceCard from '../components/ServiceCard.astro';
 import Testimonial from '../components/Testimonial.astro';
-import Stat from '../components/Stat.astro';
-import CtaBand from '../components/CtaBand.astro';
 import Icon from '../components/Icon.astro';
-import { services } from '../data/services';
+import { homeServices } from '../data/services';
+import { articles } from '../data/articles';
 import { site } from '../data/site';
 
-const homeServices = services.slice(0, 6);
+const SLIDES = [
+  { h: 'Start the Conversation', p: 'Caring starts with a conversation. Let’s talk about how we can help you or your loved one.', cta: 'Get In Touch', href: '/contact' },
+  { h: 'Comprehensive Home Care', p: 'From personal care to companionship, discover services designed for your loved one’s needs.', cta: 'See Our Services', href: '/services' },
+  { h: 'Discover Our Story', p: 'Learn about our journey to provide exceptional home care, inspired by personal experience.', cta: 'Discover More', href: '/about' },
+];
 
-const PLEDGE = [
-  { b: 'Treated like our own', p: 'We promise to care for your family with the same love and dedication we’d give ours.' },
-  { b: 'We’ve been there', p: 'Founded by people who faced the struggle of finding the right care for a loved one.' },
-  { b: 'A perfect match', p: 'A caregiver matched to your loved one’s interests, personality and individual needs.' },
-  { b: 'Never alone in this', p: 'Compassionate, personalized care so you never feel alone on this journey.' },
+const HOME_FAQS = [
+  { q: 'What Services Do You Offer?', a: 'We provide comprehensive non-medical care, including Personal Care, Companionship, Medication Management, Meal Preparation, Light Housekeeping, Transportation, Respite Care, Post-Cosmetic Care, and Dementia Care, tailored to individual recovery goals and needs.' },
+  { q: 'How Do You Ensure Quality of Care?', a: 'Our caregivers undergo rigorous screening and continuous training. We ensure quality through regular supervision, open communication for feedback, comprehensive quality assurance programs, and strict adherence to industry standards and regulations.' },
+  { q: 'Caregiver Qualifications?', a: 'Our caregivers are selected for their integrity and professionalism, requiring at least a Home Health Aide certification. Ongoing education ensures they stay abreast of care best practices, supported by initial assessments from licensed nurses for personalized care planning.' },
+  { q: 'Matching Caregivers With Clients?', a: 'We match caregivers to clients based on skills, personality, cultural background, and scheduling needs to ensure a harmonious and effective care relationship. Continuous feedback and adjustments guarantee the right fit, fostering trust and a positive care experience.' },
 ];
 
 const WHY = [
-  { icon: 'heart-handshake', h: 'Personalized Support', p: 'Every care plan is uniquely tailored to your needs, ensuring comfort and satisfaction in every aspect of our service.' },
-  { icon: 'users', h: 'Experienced Caregivers', p: 'Our caregivers are highly skilled and compassionate — matched with someone who truly understands and supports your family.' },
-  { icon: 'layout-grid', h: 'Comprehensive Services', p: 'From daily assistance to specialized care needs, our wide range of services meets every requirement with expertise and empathy.' },
-  { icon: 'shield-check', h: 'Rigorously Vetted', p: 'Background-checked, HHA-certified caregivers, with care plans guided by a licensed-nurse assessment.' },
+  { icon: 'heart-handshake', h: 'Personalized Support', p: 'Every care plan is uniquely tailored to meet your individual needs, ensuring comfort and satisfaction in every aspect of our service.' },
+  { icon: 'users', h: 'Experienced Caregivers', p: 'Our team of caregivers is highly skilled and compassionate, matching you with someone who truly understands and supports your family.' },
+  { icon: 'layout-grid', h: 'Comprehensive Services', p: 'From daily assistance to specialized care needs, our wide range of services ensures all your care requirements are met with expertise and empathy.' },
+];
+
+const STEPS = [
+  { n: '1st Step', icon: 'file-pen', h: 'Form Submission', p: 'Initiate Contact: Complete our online form to begin. This first step gathers essential details to understand your care needs and preferences, setting the stage for personalized service.' },
+  { n: '2nd Step', icon: 'stethoscope', h: 'Nurse Assessment', p: 'Tailored Evaluation: A skilled nurse conducts a detailed assessment to understand your loved one’s specific care requirements. This ensures we craft a care plan that’s as unique as they are.' },
+  { n: '3rd Step', icon: 'heart-handshake', h: 'Enjoy Home Care', p: 'Experience Care: With the care plan in place, your loved one starts receiving our compassionate, customized home care. Witness the transformative effect of our dedicated support on their daily life.' },
 ];
 
 const TESTIMONIALS = [
-  { quote: 'After my mother’s surgery, the post-cosmetic care she received was exactly what she needed for a smooth recovery. I can’t thank the team enough for their kindness and professionalism.', name: 'Emily S.', role: 'Daughter of a client' },
-  { quote: 'Their dementia care services have greatly improved my father’s quality of life, and the caregivers are not only highly skilled but genuinely caring. It’s comforting to know he is in good hands.', name: 'Michael T.', role: 'Son of a client' },
-  { quote: 'The respite care services have given me the peace of mind and breaks I desperately needed. Knowing my husband is receiving the best possible care is invaluable.', name: 'Sarah L.', role: 'Wife of a client' },
+  { quote: 'After my mother’s surgery, the compassionate care and attentive support she received from Caring Hearts Care were beyond our expectations. The post-cosmetic care service was exactly what she needed for a smooth recovery. I can’t thank the team enough for their kindness and professionalism.', name: 'Emily S.' },
+  { quote: 'Caring Hearts Care has been a blessing for our family. Their dementia care services have greatly improved my father’s quality of life, and the caregivers are not only highly skilled but also genuinely caring. It’s comforting to know he is in such good hands.', name: 'Michael T.' },
+  { quote: 'The respite care services from Caring Hearts Care have given me the peace of mind and breaks I desperately needed. Knowing that my husband is receiving the best possible care while I attend to my own needs is invaluable. I’m truly grateful for their understanding and flexibility.', name: 'Sarah L.' },
 ];
+
+const latestPosts = articles.slice(0, 4);
 ---
 
 <BaseLayout active="home" description={site.description}>
-  {/* Hero */}
-  <section class="hero">
-    <div class="wrap hero__grid">
-      <div>
-        <Eyebrow tick>Compassionate Home Care &middot; Potomac, MD</Eyebrow>
-        <h1 class="hero__title">Care that feels like <em>family</em>, right at home.</h1>
-        <p class="hero__sub">Maintaining dignity, self-worth and independence in the comforting embrace of your own home — trusted, personalized care across Potomac and the greater DC, MD &amp; VA area.</p>
-        <div class="hero__cta">
-          <Button variant="primary" size="lg" href="/contact">Get In Touch</Button>
-          <Button variant="secondary" size="lg" iconRight="arrow-right" href="/services">Explore Our Services</Button>
-        </div>
-        <div class="hero__trust">
-          <span><Icon name="check-circle-2" />Insured &amp; bonded</span>
-          <span><Icon name="check-circle-2" />Background-checked</span>
-          <span><Icon name="check-circle-2" />24/7 availability</span>
+  {/* ---------- Hero carousel (3 slides) ---------- */}
+  <section class="hero-carousel" aria-roledescription="carousel">
+    <div class="hero-carousel__veil"></div>
+    {SLIDES.map((s, i) => (
+      <div class={`hero-slide ${i === 0 ? 'is-active' : ''}`} data-slide={i}>
+        <div class="wrap hero-slide__inner">
+          <h1 class="hero-slide__title">{s.h}</h1>
+          <p class="hero-slide__sub">{s.p}</p>
+          <Button variant="primary" size="lg" href={s.href}>{s.cta}</Button>
         </div>
       </div>
-      <div class="hero__media">
-        <div class="hero__photo" style="background-image:url(/assets/photos/hero-companionship-man.jpg)" role="img" aria-label="A caregiver sharing a warm moment with an elderly man at home"></div>
-        <div class="hero__badge">
-          <span class="ring"><Icon name="heart-handshake" /></span>
-          <span><b>Serving DC, MD &amp; VA</b><small>based in Potomac, Maryland</small></span>
-        </div>
-      </div>
+    ))}
+    <div class="hero-dots">
+      {SLIDES.map((_, i) => (
+        <button class={`hero-dot ${i === 0 ? 'is-active' : ''}`} data-dot={i} aria-label={`Slide ${i + 1}`}></button>
+      ))}
     </div>
   </section>
 
-  {/* Services */}
+  {/* ---------- Welcome ---------- */}
   <section class="band band--white">
-    <div class="wrap">
+    <div class="wrap" style="max-width:62rem;text-align:center;">
       <div class="center-head">
-        <Heading center eyebrow="Our Services" title="Services tailored for you"
-          intro="Providing the full spectrum of home care to support your loved one’s independence and well-being." />
+        <Heading center eyebrow="Welcome" title="Welcome to Caring Hearts Care" />
       </div>
-      <div class="grid-3">
-        {homeServices.map((s) => (
-          <ServiceCard icon={s.icon} title={s.title} description={s.shortDesc} href={`/services/${s.id}`} />
-        ))}
+      <p style="color:var(--text-muted);line-height:var(--leading-relaxed);">At Caring Hearts Care, we believe in maintaining dignity, self-worth, and independence in the comforting embrace of your own home. Based in Potomac, Maryland, we extend our loving, compassionate care services to those facing the challenges of aging, recovering from medical procedures, or dealing with physical and cognitive impairments. Our mission is to provide you with a caregiver tailored to your personal needs, ensuring a harmonious match of interests and personalities. Explore our services, meet our dedicated team, and discover the Caring Hearts Care difference.</p>
+      <div style="margin-top:1.6rem;">
+        <Button variant="primary" href="/about">More About Us</Button>
       </div>
-      <div style="text-align:center;margin-top:2.6rem;">
-        <Button variant="dark" href="/services" iconRight="arrow-right">View All Services</Button>
-      </div>
+      <blockquote class="about-quote" style="margin-top:2.4rem;text-align:center;">
+        &ldquo;Treating your family like ours, because we’ve faced the struggle of finding the right care too.&rdquo;
+        <cite>&mdash; Nathalie M.</cite>
+      </blockquote>
     </div>
   </section>
 
-  {/* Pledge band */}
+  {/* ---------- Our Pledge ---------- */}
   <section class="band band--navy">
     <div class="wrap pledge">
       <div class="pledge__media">
         <div class="pledge__photo" style="background-image:url(/assets/photos/pledge.jpg)" role="img" aria-label="A caregiver holding the hand of a senior client"></div>
       </div>
       <div>
-        <Heading onDark eyebrow="The Caring Hearts Pledge" title="Your Family Is Our Family" />
-        <div class="pledge__list">
-          {PLEDGE.map((it) => (
-            <div class="pledge__item">
-              <span class="tick"><Icon name="check" /></span>
-              <p><b>{it.b}</b>{it.p}</p>
-            </div>
-          ))}
+        <Heading onDark eyebrow="Our Pledge" title="The Caring Hearts Pledge: Your Family Is Our Family" />
+        <p style="color:rgba(255,255,255,0.86);line-height:var(--leading-normal);max-width:48ch;">At Caring Hearts Care, we promise to treat your family with the same love and dedication we’d give our own. Having sought these services for our loved ones, we understand the challenge of finding just the right caregiver. It’s our commitment to ensure you never feel alone in this journey, providing the compassionate, personalized care your family deserves.</p>
+        <div style="margin-top:1.6rem;">
+          <Button variant="primary" href="/about">Discover More</Button>
         </div>
       </div>
     </div>
   </section>
 
-  {/* Why us */}
+  {/* ---------- Our Services ---------- */}
   <section class="band band--cream">
     <div class="wrap">
       <div class="center-head">
-        <Heading center eyebrow="Why Choose Us" title="Why families choose Caring Hearts Care"
-          intro="Discover the difference compassionate care makes." />
+        <Heading center eyebrow="Our Services" title="Services Tailored for You"
+          intro="Providing the full spectrum of home care to support independence and well-being." />
       </div>
-      <div class="grid-2" style="gap:2.4rem 3rem;">
+      <div class="grid-3">
+        {homeServices.map((s) => (
+          <ServiceCard icon={s.icon} title={s.title} description={s.description} />
+        ))}
+      </div>
+      <div style="text-align:center;margin-top:2.6rem;">
+        <Button variant="dark" href="/services" iconRight="arrow-right">View Services</Button>
+      </div>
+    </div>
+  </section>
+
+  {/* ---------- Frequently Asked ---------- */}
+  <section class="band band--white">
+    <div class="wrap wrap--narrow">
+      <div class="center-head">
+        <Heading center eyebrow="Frequently Asked" title="You have Questions? We have answers."
+          intro="Helping You Navigate Through Common Questions" />
+      </div>
+      <div class="faq__group">
+        {HOME_FAQS.map((f) => (
+          <div class="faq faq--open">
+            <div class="faq__q" style="cursor:default;"><span>{f.q}</span></div>
+            <div class="faq__a" style="max-height:none;">
+              <div class="faq__a-inner"><p>{f.a}</p></div>
+            </div>
+          </div>
+        ))}
+      </div>
+      <p style="text-align:center;color:var(--text-muted);margin-top:1.6rem;">These are concise summaries of our frequently asked questions. For more in-depth answers and additional information, please click the button below to visit our full FAQ page.</p>
+      <div style="text-align:center;margin-top:1rem;">
+        <Button variant="primary" href="/faq">FAQ Page</Button>
+      </div>
+    </div>
+  </section>
+
+  {/* ---------- Pull quote ---------- */}
+  <section class="band--tight band--gray">
+    <div class="wrap" style="max-width:54rem;text-align:center;">
+      <p style="font-family:var(--font-serif);font-size:1.6rem;line-height:1.4;color:var(--chc-navy);font-style:italic;">&ldquo;We’ll care for your loved one as if they were our own family, with all the warmth and dedication they deserve.&rdquo;</p>
+    </div>
+  </section>
+
+  {/* ---------- Why Choose Us ---------- */}
+  <section class="band band--cream">
+    <div class="wrap">
+      <div class="center-head">
+        <Heading center eyebrow="Why Choose Us" title="Why Choose Caring Hearts Care"
+          intro="Discover the Difference Compassionate Care Makes" />
+      </div>
+      <div class="grid-3">
         {WHY.map((w) => (
-          <div class="feature">
-            <div class="feature__icon"><Icon name={w.icon} /></div>
-            <div><h3>{w.h}</h3><p>{w.p}</p></div>
+          <div class="card" style="text-align:left;">
+            <span class="feature__icon" style="background:var(--chc-gold-tint);color:var(--chc-gold-deep);margin-bottom:1rem;"><Icon name={w.icon} /></span>
+            <h3 style="font-family:var(--font-serif);color:var(--chc-navy);font-size:1.3rem;margin:0 0 0.4rem;">{w.h}</h3>
+            <p style="margin:0;color:var(--text-muted);line-height:var(--leading-normal);">{w.p}</p>
           </div>
         ))}
       </div>
     </div>
   </section>
 
-  {/* Stats strip */}
-  <section class="band--tight band--white">
-    <div class="wrap grid-4" style="text-align:center;">
-      <Stat value="9" label="Home care services" />
-      <Stat value="DC·MD·VA" label="Service area" />
-      <Stat value="24/7" label="Availability" />
-      <Stat value="HHA" label="Certified caregivers" />
+  {/* ---------- Contact ---------- */}
+  <section class="band band--white">
+    <div class="wrap" style="max-width:50rem;">
+      <div class="center-head">
+        <Heading center eyebrow="Contact" title="Reach Out Anytime"
+          intro="Ready to discuss your care needs? Our team is here to listen and guide you every step of the way." />
+      </div>
+      <form id="home-contact-form" class="formcard" style="margin-top:1rem;">
+        <input type="hidden" name="access_key" value={site.web3formsKey} />
+        <input type="hidden" name="from_name" value="Caring Hearts Care website" />
+        <input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" style="display:none;position:absolute;left:-9999px;" aria-hidden="true" />
+        <div class="field-row">
+          <div class="field"><label for="h-name">Name <span class="req">*</span></label><input id="h-name" name="name" required placeholder="Name" /></div>
+          <div class="field"><label for="h-phone">Phone</label><input id="h-phone" name="phone" type="tel" placeholder="Phone" /></div>
+        </div>
+        <div class="field-row">
+          <div class="field"><label for="h-email">Email</label><input id="h-email" name="email" type="email" placeholder="Email" /></div>
+          <div class="field"><label for="h-subject">Subject</label><input id="h-subject" name="subject" placeholder="Subject" /></div>
+        </div>
+        <div class="field"><label for="h-message">Message</label><textarea id="h-message" name="message" placeholder="Message"></textarea></div>
+        <p id="home-form-error" class="form-error" hidden></p>
+        <p id="home-form-ok" class="form-ok" hidden>Thank you — a care coordinator will reach out shortly.</p>
+        <Button variant="primary" size="lg" type="submit" id="home-submit" class="btn-block">Submit</Button>
+      </form>
     </div>
   </section>
 
-  {/* Testimonials */}
+  {/* ---------- From Our Blog ---------- */}
+  <section class="band band--cream">
+    <div class="wrap">
+      <div class="center-head">
+        <Heading center eyebrow="From Our Blog" title="Latest News" />
+      </div>
+      <div class="grid-2">
+        {latestPosts.map((p) => (
+          <a class="post" href={`/${p.id}`}>
+            <div class="post__photo" style={`background-image:url(${p.hero})`} role="img" aria-label={`${p.category} article`}>
+              <span class="post__cat">{p.category}</span>
+            </div>
+            <div class="post__body">
+              <div class="post__meta"><Icon name="calendar" />{p.date}</div>
+              <h3 class="post__title">{p.title}</h3>
+              <p class="post__excerpt">{p.deck}</p>
+              <span class="service__link">Read More &raquo;</span>
+            </div>
+          </a>
+        ))}
+      </div>
+      <div style="text-align:center;margin-top:2.6rem;">
+        <Button variant="dark" href="/blog" iconRight="arrow-right">More Articles</Button>
+      </div>
+    </div>
+  </section>
+
+  {/* ---------- Our Home Care Process ---------- */}
+  <section class="band band--white">
+    <div class="wrap">
+      <div class="center-head">
+        <Heading center eyebrow="Our Approach" title="Our Home Care Process" />
+      </div>
+      <div class="grid-3">
+        {STEPS.map((s) => (
+          <div class="card" style="text-align:left;">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;">
+              <span class="feature__icon" style="background:var(--chc-gold-tint);color:var(--chc-gold-deep);"><Icon name={s.icon} /></span>
+              <span style="font-family:var(--font-ui);font-size:0.85rem;color:var(--chc-gold-deep);font-weight:700;text-transform:uppercase;letter-spacing:0.08em;">{s.n}</span>
+            </div>
+            <h3 style="font-family:var(--font-serif);color:var(--chc-navy);font-size:1.25rem;margin:0 0 0.4rem;">{s.h}</h3>
+            <p style="margin:0;color:var(--text-muted);line-height:var(--leading-normal);">{s.p}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  {/* ---------- Testimonials ---------- */}
   <section class="band band--gray">
     <div class="wrap">
       <div class="center-head">
-        <Heading center eyebrow="Happy Clients" title="Testimonials from our families" />
+        <Heading center eyebrow="Happy Clients" title="Here are some testimonials from our amazing customers." />
       </div>
       <div class="grid-3">
-        {TESTIMONIALS.map((t) => <Testimonial quote={t.quote} name={t.name} role={t.role} />)}
+        {TESTIMONIALS.map((t) => <Testimonial quote={t.quote} name={t.name} role="" />)}
       </div>
     </div>
   </section>
 
-  {/* CTA band */}
+  {/* ---------- Our Nurses ---------- */}
   <section class="band band--white">
-    <div class="wrap">
-      <CtaBand title="Caring starts with a conversation"
-        intro="Let’s talk about how we can help you or your loved one. Reach out today — we’re here to listen and guide you every step of the way."
-        secondaryLabel="Explore Our Services" secondaryHref="/services" />
+    <div class="wrap" style="max-width:62rem;text-align:center;">
+      <div class="center-head">
+        <Heading center eyebrow="Our Nurses" title="Caring Hearts Care Nurses and Caregivers" />
+      </div>
+      <p style="color:var(--text-muted);line-height:var(--leading-relaxed);">Our nurses and caregivers at Caring Hearts Care are selected through a rigorous process that emphasizes not only their professional qualifications and certifications but also their dedication to providing compassionate care. Each caregiver undergoes thorough background checks to ensure the highest levels of integrity and professionalism. Additionally, we require all our caregivers to possess at least a Home Health Aide (HHA) certification, ensuring they are equipped with the necessary skills to offer quality care. Beyond these prerequisites, our team receives ongoing training and education, keeping them updated on the latest best practices in home care to meet the evolving needs of our clients with excellence and empathy.</p>
     </div>
   </section>
 </BaseLayout>
+
+<style>
+  /* Hero carousel */
+  .hero-carousel {
+    position: relative;
+    min-height: 560px;
+    display: grid;
+    background: var(--chc-navy) url(/assets/photos/hero-companionship-man.jpg) center/cover no-repeat;
+    isolation: isolate;
+  }
+  .hero-carousel__veil {
+    position: absolute; inset: 0;
+    background: linear-gradient(180deg, rgba(14,42,71,0.62), rgba(14,42,71,0.82));
+    z-index: 0;
+  }
+  .hero-slide {
+    grid-area: 1 / 1;
+    display: flex; align-items: center;
+    opacity: 0; visibility: hidden;
+    transition: opacity 0.7s ease;
+    z-index: 1; position: relative;
+    padding: var(--space-8) 0;
+  }
+  .hero-slide.is-active { opacity: 1; visibility: visible; }
+  .hero-slide__inner { max-width: 46rem; }
+  .hero-slide__title {
+    font-family: var(--font-serif); color: #fff;
+    font-size: clamp(2.4rem, 5vw, 3.6rem); line-height: 1.08; margin: 0 0 1rem;
+  }
+  .hero-slide__sub {
+    color: rgba(255,255,255,0.9); font-size: 1.15rem; line-height: 1.5;
+    max-width: 36ch; margin: 0 0 1.8rem;
+  }
+  .hero-dots {
+    position: absolute; bottom: 1.6rem; left: 0; right: 0;
+    display: flex; gap: 0.6rem; justify-content: center; z-index: 2;
+  }
+  .hero-dot {
+    width: 11px; height: 11px; border-radius: 999px; border: 0; cursor: pointer;
+    background: rgba(255,255,255,0.4);
+  }
+  .hero-dot.is-active { background: var(--chc-gold); }
+
+  .form-error { color: var(--color-error); text-align: center; margin: 0 0 0.8rem; }
+  .form-ok { color: var(--color-success, #2e7d32); text-align: center; margin: 0 0 0.8rem; }
+  .btn-block { width: 100%; }
+</style>
+
+<script>
+  // Auto-rotating hero carousel
+  const slides = Array.from(document.querySelectorAll<HTMLElement>('.hero-slide'));
+  const dots = Array.from(document.querySelectorAll<HTMLButtonElement>('.hero-dot'));
+  let idx = 0;
+  let timer: number | undefined;
+  function go(n: number) {
+    slides.forEach((s, i) => s.classList.toggle('is-active', i === n));
+    dots.forEach((d, i) => d.classList.toggle('is-active', i === n));
+    idx = n;
+  }
+  function next() { go((idx + 1) % slides.length); }
+  function start() { timer = window.setInterval(next, 6000); }
+  function reset() { if (timer) window.clearInterval(timer); start(); }
+  dots.forEach((d, i) => d.addEventListener('click', () => { go(i); reset(); }));
+  if (slides.length > 1) start();
+
+  // Home contact form (Web3Forms)
+  const form = document.getElementById('home-contact-form') as HTMLFormElement | null;
+  const err = document.getElementById('home-form-error');
+  const ok = document.getElementById('home-form-ok');
+  const btn = document.getElementById('home-submit') as HTMLButtonElement | null;
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (err) err.hidden = true;
+    const data = new FormData(form);
+    if (String(data.get('access_key')).startsWith('YOUR_')) {
+      if (err) { err.textContent = 'This form isn’t connected yet. Please try again soon.'; err.hidden = false; }
+      return;
+    }
+    if (btn) { btn.disabled = true; btn.querySelector('span')!.textContent = 'Sending…'; }
+    try {
+      const res = await fetch('https://api.web3forms.com/submit', { method: 'POST', headers: { Accept: 'application/json' }, body: data });
+      const json = await res.json();
+      if (json.success) {
+        form.reset();
+        if (ok) ok.hidden = false;
+      } else if (err) { err.textContent = json.message || 'Something went wrong. Please try again.'; err.hidden = false; }
+    } catch {
+      if (err) { err.textContent = 'Network error. Please check your connection and try again.'; err.hidden = false; }
+    } finally {
+      if (btn) { btn.disabled = false; btn.querySelector('span')!.textContent = 'Submit'; }
+    }
+  });
+</script>

@@ -17,7 +17,7 @@ const rest = articles.slice(1);
 
   <section class="band band--cream">
     <div class="wrap">
-      <a class="post post--featured" href={`/blog/${featured.id}`}>
+      <a class="post post--featured" href={`/${featured.id}`}>
         <div class="post__photo" style={`background-image:url(${featured.hero})`} role="img" aria-label={`${featured.category} article`}>
           <span class="post__cat">{featured.category}</span>
         </div>
@@ -31,7 +31,7 @@ const rest = articles.slice(1);
 
       <div class="grid-2" style="margin-top:var(--space-6);">
         {rest.map((p) => (
-          <a class="post" href={`/blog/${p.id}`}>
+          <a class="post" href={`/${p.id}`}>
             <div class="post__photo" style={`background-image:url(${p.hero})`} role="img" aria-label={`${p.category} article`}>
               <span class="post__cat">{p.category}</span>
             </div>

@@ -6,95 +6,62 @@ import Eyebrow from '../components/Eyebrow.astro';
 import Button from '../components/Button.astro';
 import Icon from '../components/Icon.astro';
 
-const PERKS = [
-  { icon: 'heart', h: 'Meaningful work', p: 'Make a real difference in a family’s life, every single shift.' },
-  { icon: 'calendar-clock', h: 'Flexible scheduling', p: 'Full-time, part-time, live-in or per-diem — we build shifts around your life.' },
-  { icon: 'graduation-cap', h: 'Paid ongoing training', p: 'Grow your skills with continuing education and clear support from supervisors.' },
-  { icon: 'users', h: 'A supportive team', p: 'You’re never on your own — coordinators and nurses have your back.' },
+const QUALITIES = [
+  'Possession of a Home Health Aide (HHA) certification.',
+  'A commitment to professionalism and integrity in all aspects of care.',
+  'Experience in personal care and assistance with activities of daily living.',
+  'Skills in medication management and administration.',
+  'Proficiency in light housekeeping duties to maintain clean and safe living spaces.',
+  'Expertise in dementia care, including cognitive stimulation and behavioral management.',
+  'Willingness to collaborate closely with healthcare providers and family members.',
+  'Ability to adapt to the changing needs and preferences of clients.',
+  'Ability to offer companionship and emotional support.',
+  'Understanding and experience in respite care to provide temporary relief for family caregivers.',
+  'Professional qualifications relevant to nursing or caregiving.',
+  'Compassion and dedication to providing heartfelt care.',
+  'Ability to pass a thorough background check.',
+  'Ongoing willingness to engage in training and education.',
+  'Knowledge and capability in preparing nutritious meals tailored to client needs.',
+  'Reliability in providing transportation for medical appointments, errands, and social outings.',
+  'Specialized knowledge in post-cosmetic surgery care and recovery processes.',
+  'Sensitivity to and respect for the diverse needs and backgrounds of clients.',
+  'Excellent communication skills to foster clear and open dialogue with clients and their families.',
+  'A genuine desire to enhance the quality of life for clients and their families through superior care and support.',
 ];
 
-const ROLES = [
-  { title: 'Home Health Aide (HHA)', type: 'Full-time / Part-time', loc: 'Potomac & the DMV' },
-  { title: 'Companion Caregiver', type: 'Flexible hours', loc: 'DC · MD · VA' },
-  { title: 'Certified Nursing Assistant (CNA)', type: 'Per diem', loc: 'DC · MD · VA' },
-  { title: 'Live-In Caregiver', type: 'Full-time', loc: 'Potomac & the DMV' },
-];
-
-const REQS = [
-  'Home Health Aide (HHA) certification, or willingness to obtain one',
-  'Pass a thorough background and reference check',
-  'A compassionate, patient and reliable nature',
-  'Reliable transportation and strong communication skills',
-];
-
-const applyHref = '/contact?subject=Careers';
+const applyHref = 'https://13302.axiscare.com/?caregivers-applications.php&applicationId=1297';
 ---
 
 <BaseLayout active="careers" title="Careers"
-  description="Join a team that cares. Caring Hearts Care is hiring compassionate HHAs, companions, CNAs and live-in caregivers across Potomac and the greater DC, MD & VA area.">
+  description="Join the Caring Hearts Care team of compassionate nurses and caregivers across Maryland, Washington, D.C., and Virginia. Apply through our AxisCare platform.">
   <SubHero
-    title="Join a team that cares"
-    intro="We’re always looking for compassionate, dedicated caregivers to welcome into the Caring Hearts family. If caring for others is your calling, we’d love to meet you."
+    title="Careers"
     crumbs={[{ label: 'Home', href: '/' }, { label: 'Careers' }]} />
 
-  {/* Why work here */}
+  {/* What are we looking for */}
   <section class="band band--cream">
-    <div class="wrap">
+    <div class="wrap" style="max-width:64rem;">
       <div class="center-head">
-        <Heading center eyebrow="Why Work With Us" title="More than a job — a calling" />
+        <Heading center eyebrow="Careers" title="What are we looking for?" />
       </div>
-      <div class="grid-4">
-        {PERKS.map((p) => (
-          <div class="card" style="text-align:left;">
-            <span class="feature__icon" style="background:var(--chc-gold-tint);color:var(--chc-gold-deep);margin-bottom:1rem;"><Icon name={p.icon} /></span>
-            <h3 style="font-family:var(--font-serif);color:var(--chc-navy);font-size:1.2rem;margin:0 0 0.4rem;">{p.h}</h3>
-            <p style="margin:0;color:var(--text-muted);line-height:var(--leading-normal);">{p.p}</p>
-          </div>
+      <p style="color:var(--text-muted);line-height:var(--leading-relaxed);">At Caring Hearts Care, we pride ourselves on the exceptional standard of care we provide to our clients, which is only made possible through our dedicated team of nurses and caregivers. To join our esteemed team, we look for individuals who not only meet our high professional standards but also embody the compassion, dedication, and integrity that are at the heart of our mission. Below is a list of qualities and qualifications we seek in our nurses and caregivers, each critical to ensuring the well-being and satisfaction of the families we serve. If you believe you possess most or all of these attributes, we would love to hear from you.</p>
+      <div class="faq__list" style="margin-top:1.6rem;">
+        {QUALITIES.map((q) => (
+          <div class="faq__row"><Icon name="check" /><p>{q}</p></div>
         ))}
       </div>
     </div>
   </section>
 
-  {/* Open roles + requirements */}
+  {/* Join Our Team */}
   <section class="band band--white">
-    <div class="wrap careers-grid">
-      <div>
-        <Heading eyebrow="Open Positions" title="Current openings" />
-        <div class="roles">
-          {ROLES.map((r) => (
-            <div class="role">
-              <div>
-                <b>{r.title}</b>
-                <span class="role__meta"><Icon name="clock" />{r.type}<Icon name="map-pin" />{r.loc}</span>
-              </div>
-              <Button variant="secondary" size="sm" href={applyHref} iconRight="arrow-right">Apply</Button>
-            </div>
-          ))}
-        </div>
+    <div class="wrap" style="max-width:60rem;text-align:center;">
+      <div class="center-head">
+        <Heading center eyebrow="Join Our Team!" title="Maryland · Washington, D.C. · Virginia" />
       </div>
-      <aside class="careers-reqs">
-        <Eyebrow tick>What We Look For</Eyebrow>
-        <h3>Caregiver requirements</h3>
-        <div class="faq__list">
-          {REQS.map((q) => (
-            <div class="faq__row"><Icon name="check" /><p>{q}</p></div>
-          ))}
-        </div>
-        <p class="careers-note">Every caregiver is background-checked and supported by a licensed-nurse assessment process.</p>
-      </aside>
-    </div>
-  </section>
-
-  {/* Apply CTA */}
-  <section class="band band--gray">
-    <div class="wrap">
-      <div class="ctaband">
-        <Eyebrow onDark>Ready to Apply?</Eyebrow>
-        <h2>Start your caregiving career with Caring Hearts</h2>
-        <p>Tell us about yourself and we’ll be in touch. We can’t wait to welcome you to the family.</p>
-        <div class="ctaband__row">
-          <Button variant="primary" size="lg" href={applyHref}>Apply Now</Button>
-        </div>
+      <p style="color:var(--text-muted);line-height:var(--leading-relaxed);">Joining our compassionate team of nurses and caregivers at Caring Hearts Care is a seamless process, designed to welcome you into our family with ease. We manage all applications through the intuitive AxisCare platform, ensuring a straightforward and efficient experience from start to finish. If you’re ready to make a difference in the lives of others and meet our standards of care and professionalism, simply click the yellow, “Apply Now!” button. You’ll be directed to a form on the following page where you can begin the process of joining our dedicated team. We look forward to potentially having you as part of our caring community!</p>
+      <div style="margin-top:1.6rem;">
+        <Button variant="primary" size="lg" href={applyHref}>Apply Now!</Button>
       </div>
     </div>
   </section>

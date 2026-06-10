@@ -1,11 +1,17 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import Heading from '../../components/Heading.astro';
-import Eyebrow from '../../components/Eyebrow.astro';
-import Button from '../../components/Button.astro';
-import Icon from '../../components/Icon.astro';
-import ArticleBlock from '../../components/ArticleBlock.astro';
-import { articles, articleById, AUTHORS } from '../../data/articles';
+/**
+ * Root-level blog post route. The live caringheartscare.com serves posts at the site root
+ * (e.g. /5-ways-caring-hearts-home-care/), NOT under /blog/, so these pages match those exact
+ * URLs. Astro's explicit/static routes (about, services, contact, …) take precedence over this
+ * dynamic route, and getStaticPaths only emits the known post slugs, so there is no collision.
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Heading from '../components/Heading.astro';
+import Eyebrow from '../components/Eyebrow.astro';
+import Button from '../components/Button.astro';
+import Icon from '../components/Icon.astro';
+import ArticleBlock from '../components/ArticleBlock.astro';
+import { articles, articleById, AUTHORS } from '../data/articles';
 
 export function getStaticPaths() {
   return articles.map((a) => ({ params: { slug: a.id } }));
@@ -26,7 +32,24 @@ const related = articles.filter((p) => p.id !== a.id).slice(0, 3);
 <BaseLayout active="blog" title={a.title} description={a.deck} image={a.hero}>
   <div class="article-page">
     {/* ---------- Hero ---------- */}
-    {hs === 'overlay' ? (
+    {a.titleInImage ? (
+      <section class="band--tight band--white" style="padding-bottom:0;">
+        <div class="wrap wrap--narrow article-head">
+          <div class="crumbs crumbs--ink">
+            <a href="/">Home</a> &nbsp;/&nbsp; <a href="/blog">Blog</a> &nbsp;/&nbsp; {a.category}
+          </div>
+          <img src={a.hero} alt={a.title}
+            style="display:block;width:100%;height:auto;border-radius:var(--radius-lg);box-shadow:var(--shadow-lg);margin-top:1rem;" />
+          <div class="article-meta">
+            <span class="art-avatar">{author.initials}</span>
+            <span class="article-meta__by"><b>{author.name}</b><span>{author.role}</span></span>
+            <span class="article-meta__dot"></span>
+            <span class="article-meta__item"><Icon name="calendar" />{a.date}</span>
+            <span class="article-meta__item"><Icon name="clock" />{a.readTime}</span>
+          </div>
+        </div>
+      </section>
+    ) : hs === 'overlay' ? (
       <section class="article-hero" style={`background-image:url(${a.hero})`}>
         <div class="article-hero__veil"></div>
         <div class="wrap wrap--narrow article-hero__inner">
@@ -133,7 +156,7 @@ const related = articles.filter((p) => p.id !== a.id).slice(0, 3);
         <div class="center-head"><Heading center eyebrow="Keep Reading" title="More from our blog" /></div>
         <div class="grid-3">
           {related.map((p) => (
-            <a class="post" href={`/blog/${p.id}`}>
+            <a class="post" href={`/${p.id}`}>
               <div class="post__photo" style={`background-image:url(${p.hero})`} role="img" aria-label={p.category}>
                 <span class="post__cat">{p.category}</span>
               </div>

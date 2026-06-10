@@ -10,6 +10,21 @@
    in the rules below and in kit.css.) */
 img { max-width: 100%; height: auto; }
 
+/* Blog cards show the original 16:9 promo banners (title + faces baked in), so the
+   thumbnail must display the WHOLE image — never crop it to a short fixed height.
+   A 16:9 box + cover gives an exact, edge-to-edge fit for these 1920x1080 banners. */
+.post__photo { height: auto; aspect-ratio: 16 / 9; }
+.post--featured { grid-template-columns: 1fr; }              /* stack so the banner is full-width */
+.post--featured .post__photo { height: auto; min-height: 0; aspect-ratio: 16 / 9; }
+
+/* Keep anchor-buttons legible inside link-colored containers (e.g. the footer's
+   `.footer a { color: muted }`, which otherwise out-specifies `.btn--*` and made the
+   gold "Request a Free Consultation" button render muted-gray-on-gold). */
+a.btn--primary { color: var(--chc-navy); }
+a.btn--secondary { color: var(--chc-navy); }
+a.btn--dark,
+a.btn--ghost-light { color: #fff; }
+
 /* ---- Tablet / small laptop ---- */
 @media (max-width: 900px) {
   /* Footer collapses from 4 cols (was unchanged → overflow on phones) */

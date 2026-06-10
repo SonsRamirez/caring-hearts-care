@@ -3,11 +3,10 @@ import { defineConfig } from 'astro/config';
 import icon from 'astro-icon';
 import sitemap from '@astrojs/sitemap';
 
-// NOTE: update `site` to the real Cloudflare Pages URL after the first deploy
-// (e.g. https://caring-hearts-care.pages.dev), then to the custom domain when live.
+// `site` is the production custom domain (used for the sitemap + canonical/OpenGraph URLs).
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://caring-hearts-care.pages.dev',
+  site: 'https://caringheartscare.com',
   output: 'static',
   integrations: [
     icon(),

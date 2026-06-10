@@ -1,6 +1,16 @@
 /**
- * The 9 Caring Hearts Care services. Mirrors the live caringheartscare.com site.
- * `shortDesc` → Home grid · `cardDesc` → Services grid · the rest → detail page.
+ * Caring Hearts Care services — text reproduced VERBATIM from caringheartscare.com.
+ *
+ * The live site is internally inconsistent about its service set, so we mirror it exactly:
+ *  • `services`     → the 9 cards on the /services page (Personal Care, Meal Preparation,
+ *                     Transportation, Companionship, Light Housekeeping, Manage Medications,
+ *                     Respite Care, Post-Cosmetic Care, Dementia Care).
+ *  • `homeServices` → the 6 cards in the Home page "Our Services" section (Personal Care,
+ *                     Home Helper, Transportation, Companionship, Specialized Care, Manage
+ *                     Medications).
+ *
+ * The original has NO per-service detail pages, so these carry only title + description.
+ * (One original typo — "Care Hearts Care" — has been corrected to "Caring Hearts Care".)
  */
 
 export interface Service {
@@ -8,184 +18,134 @@ export interface Service {
   icon: string;
   title: string;
   image: string;
-  shortDesc: string;
-  cardDesc: string;
-  lead: string;
-  includes: string[];
-  forYou: string;
+  description: string;
 }
 
+/** The 9 services exactly as listed on the live /services page. */
 export const services: Service[] = [
   {
     id: 'personal-care',
     icon: 'hand-helping',
     title: 'Personal Care',
     image: '/assets/photos/caregiver-doorway.jpg',
-    shortDesc: 'Maintain dignity and independence with hands-on help to stay healthy at home.',
-    cardDesc:
-      'Personal care assistance helps your loved one maintain dignity while receiving the support needed to stay healthy and independent at home.',
-    lead: 'Hands-on help with the activities of daily living, delivered with the patience and respect your loved one deserves — so they can stay healthy, comfortable and independent at home.',
-    includes: [
-      'Bathing, grooming and dressing',
-      'Toileting and incontinence care',
-      'Mobility, transfers and fall prevention',
-      'Feeding and hydration support',
-      'Skin and personal hygiene care',
-    ],
-    forYou:
-      'Ideal for seniors who need daily assistance to remain safely at home while preserving their dignity and routine.',
+    description:
+      'Our Personal Care service is designed to support clients in their daily routines with dignity and respect. Assistance includes bathing, grooming, dressing, and toileting, catering to each individual’s personal needs and preferences. This service ensures clients can maintain their hygiene and appearance with confidence and comfort.',
   },
   {
-    id: 'home-helper',
-    icon: 'home',
-    title: 'Home Helper',
+    id: 'meal-preparation',
+    icon: 'utensils',
+    title: 'Meal Preparation',
     image: '/assets/photos/home-helper.jpg',
-    shortDesc: 'A clean, organized home and wholesome meals, woven into the daily routine.',
-    cardDesc:
-      'A clean, organized home and wholesome, delicious meals — seamlessly woven into your loved one’s daily routine.',
-    lead: 'A clean, organized home and wholesome, delicious meals — seamlessly woven into your loved one’s daily routine so home stays a comfortable, safe place to be.',
-    includes: [
-      'Light housekeeping and tidying',
-      'Laundry and linens',
-      'Meal planning and preparation',
-      'Grocery shopping and errands',
-      'Organizing and seasonal help',
-    ],
-    forYou:
-      'Perfect for those who are largely independent but could use a hand keeping the household running smoothly.',
+    description:
+      'Our Meal Preparation service involves planning and preparing nutritious meals that cater to the dietary needs and preferences of our clients. From grocery shopping to cooking, we take care of all aspects of mealtime, ensuring clients enjoy healthy, delicious meals every day.',
   },
   {
     id: 'transportation',
     icon: 'car',
     title: 'Transportation',
     image: '/assets/photos/transportation.jpg',
-    shortDesc: 'Safe, friendly rides to appointments, the pharmacy and activities.',
-    cardDesc:
-      'When driving becomes challenging, rely on an expert caregiver to safely provide transportation to appointments and activities.',
-    lead: 'When driving becomes challenging, a trusted caregiver provides safe, friendly transportation to wherever your loved one needs to go.',
-    includes: [
-      'Medical and dental appointments',
-      'Pharmacy and grocery trips',
-      'Worship services and social outings',
-      'Door-through-door escort',
-      'Help with mobility aids',
-    ],
-    forYou:
-      'Great for seniors who no longer drive but want to stay active, connected and on top of their health.',
+    description:
+      'Our Transportation service provides clients with safe and reliable escorting to medical appointments, grocery shopping, errands, and social outings. This service ensures clients remain active and connected with their community, maintaining independence in their daily activities.',
   },
   {
     id: 'companionship',
     icon: 'users',
     title: 'Companionship',
     image: '/assets/photos/companionship-woman.jpg',
-    shortDesc: 'A warm, friendly caregiver matched to your loved one’s personality and needs.',
-    cardDesc:
-      'Warm, friendly caregivers keep the mind stimulated and the body active — matched to your loved one’s personality and individual needs.',
-    lead: 'Warm, friendly caregivers who keep the mind stimulated and the body active — matched to your loved one’s personality and individual interests.',
-    includes: [
-      'Conversation and emotional support',
-      'Games, hobbies and reading',
-      'Walks and gentle activity',
-      'Help staying socially connected',
-      'A consistent, familiar presence',
-    ],
-    forYou:
-      'Ideal for seniors experiencing loneliness or isolation who would thrive with regular, caring company.',
+    description:
+      'The Companionship service provides clients with meaningful social interaction, engaging conversation, and emotional support. This vital service aims to alleviate loneliness, enhance well-being, and promote a positive outlook on life by connecting clients with compassionate caregivers for companionship and activities that bring joy.',
   },
   {
-    id: 'specialized-care',
-    icon: 'stethoscope',
-    title: 'Specialized Care',
-    image: '/assets/photos/specialized-care.jpg',
-    shortDesc: 'Long- and short-term care for recovery from surgery, illness or disability.',
-    cardDesc:
-      'Recovering from surgery, childbirth, illness or disability? We provide long-term and short-term care when you need time to rest and recuperate.',
-    lead: 'Recovering from surgery, childbirth, illness or disability? We provide long-term and short-term care for when you or your loved one needs time to rest and recuperate.',
-    includes: [
-      'Post-surgical recovery support',
-      'Chronic illness and disability care',
-      'Stroke and mobility recovery',
-      'Coordination with your care team',
-      'Long-term or short-term plans',
-    ],
-    forYou:
-      'For families navigating a complex diagnosis or recovery who need experienced, attentive support at home.',
+    id: 'light-housekeeping',
+    icon: 'sparkles',
+    title: 'Light Housekeeping',
+    image: '/assets/photos/home-helper.jpg',
+    description:
+      'The Light Housekeeping service assists clients with maintaining a clean and orderly home environment. Tasks include laundry, vacuuming, and tidying up living spaces, contributing to a pleasant and safe living area that clients can enjoy and be proud of.',
   },
   {
     id: 'manage-medications',
     icon: 'pill',
     title: 'Manage Medications',
     image: '/assets/photos/medication.jpg',
-    shortDesc: 'Timely reminders and careful assistance, prioritizing safety and accuracy.',
-    cardDesc:
-      'Timely medication reminders and thoughtful, comprehensive assistance with administration — always prioritizing safety and accuracy.',
-    lead: 'Timely medication reminders and thoughtful, comprehensive assistance with administration — always prioritizing safety and accuracy.',
-    includes: [
-      'Scheduled medication reminders',
-      'Assistance with administration',
-      'Refill tracking and pickup',
-      'Watching for side effects',
-      'Coordination with pharmacists',
-    ],
-    forYou:
-      'Best for seniors managing multiple prescriptions who need a careful, reliable routine to stay safe.',
+    description:
+      'With Medication Management, we offer meticulous reminders for clients to take their medications according to their prescribed schedule, along with assistance in medication administration if required. This service prioritizes the client’s health and well-being, ensuring medications are taken safely and effectively.',
   },
   {
     id: 'respite-care',
     icon: 'coffee',
     title: 'Respite Care',
     image: '/assets/photos/respite-care.jpg',
-    shortDesc: 'Short-term relief for family caregivers — take the break you need.',
-    cardDesc:
-      'Short-term relief for family caregivers — take the break you need, knowing your loved one is in trusted, attentive hands.',
-    lead: 'Short-term relief for family caregivers — take the break you need, knowing your loved one is in trusted, attentive hands.',
-    includes: [
-      'A few hours or several days',
-      'Full continuity of the care routine',
-      'Overnight and weekend coverage',
-      'Peace of mind while you rest',
-      'Flexible, on-your-schedule support',
-    ],
-    forYou:
-      'For devoted family caregivers who need time to recharge, travel or simply attend to their own needs.',
+    description:
+      'Respite Care offers temporary relief to family caregivers, allowing them time to rest, recharge, or attend to their own needs. This service supports the well-being of both clients and their families, ensuring continuous, high-quality care even in the caregiver’s absence.',
   },
   {
     id: 'post-cosmetic-care',
     icon: 'bandage',
     title: 'Post-Cosmetic Care',
     image: '/assets/photos/post-cosmetic-care.jpg',
-    shortDesc: 'Attentive recovery support after a cosmetic procedure, for smooth healing at home.',
-    cardDesc:
-      'Compassionate, attentive recovery support after a cosmetic procedure, for a smooth and comfortable healing at home.',
-    lead: 'Compassionate, attentive recovery support after a cosmetic procedure, tailored to your specific needs and recovery goals — for a smooth, comfortable healing at home.',
-    includes: [
-      'Personalized recovery support',
-      'Comfort and mobility assistance',
-      'Help following post-op instructions',
-      'Coordination with your provider',
-      'A calm, restful home environment',
-    ],
-    forYou:
-      'For anyone recovering from a cosmetic procedure who wants to heal safely in familiar surroundings.',
+    description:
+      'Specializing in Post-Cosmetic Care, we provide dedicated support and assistance to individuals recovering from cosmetic surgery. Tailored to each client’s specific needs and recovery goals, this service focuses on comfortable and safe healing at home, with close coordination with healthcare providers for a smooth recovery process.',
   },
   {
     id: 'dementia-care',
     icon: 'brain',
     title: 'Dementia Care',
     image: '/assets/photos/dementia-care.jpg',
-    shortDesc: 'Patient, specialized support for memory loss — improving quality of life.',
-    cardDesc:
-      'Patient, specialized support for memory loss — improving quality of life with skilled caregivers who are genuinely caring.',
-    lead: 'Patient, specialized support for individuals living with Alzheimer’s or other forms of dementia — including cognitive stimulation and gentle behavioral management.',
-    includes: [
-      'Cognitive stimulation activities',
-      'Gentle behavioral management',
-      'Safe, structured routines',
-      'Familiar, consistent caregivers',
-      'Family guidance and support',
-    ],
-    forYou:
-      'For families caring for a loved one with memory loss who need skilled, genuinely caring, specialized support.',
+    description:
+      'Our Dementia Care service offers specialized attention and support to individuals living with Alzheimer’s disease or other forms of dementia. Focused on cognitive stimulation and behavioral management, our caregivers are trained to enhance the quality of life for clients with dementia, ensuring a safe, supportive, and understanding environment.',
+  },
+];
+
+/** The 6 services exactly as listed in the Home page "Our Services" section. */
+export const homeServices: Service[] = [
+  {
+    id: 'personal-care',
+    icon: 'hand-helping',
+    title: 'Personal Care',
+    image: '/assets/photos/caregiver-doorway.jpg',
+    description:
+      'Personal care assistance helps you or your loved one maintain dignity while receiving the care needed to stay healthy and independent.',
+  },
+  {
+    id: 'home-helper',
+    icon: 'home',
+    title: 'Home Helper',
+    image: '/assets/photos/home-helper.jpg',
+    description:
+      'Simplify your life with our Home Helper service, ensuring a clean, organized home and wholesome, delicious meals, all seamlessly integrated into your daily routine.',
+  },
+  {
+    id: 'transportation',
+    icon: 'car',
+    title: 'Transportation',
+    image: '/assets/photos/transportation.jpg',
+    description:
+      'When driving becomes challenging, you and your loved one can rely on an expert caregiver to safely provide transportation to various appointments and activities.',
+  },
+  {
+    id: 'companionship',
+    icon: 'users',
+    title: 'Companionship',
+    image: '/assets/photos/companionship-woman.jpg',
+    description:
+      'Stimulating the mind and keeping the body active are important as you or your loved one faces challenging times. Our caregivers are warm and friendly, and we will match a caregiver to you or your loved one’s personality and individual needs.',
+  },
+  {
+    id: 'specialized-care',
+    icon: 'stethoscope',
+    title: 'Specialized Care',
+    image: '/assets/photos/specialized-care.jpg',
+    description:
+      'Recovering from surgery, giving birth, or living with an illness or disability can be challenging. Caring Hearts Care provides both long-term and short-term care when you or your loved one need time to rest and recuperate.',
+  },
+  {
+    id: 'manage-medications',
+    icon: 'pill',
+    title: 'Manage Medications',
+    image: '/assets/photos/medication.jpg',
+    description:
+      'We ensure timely medication reminders and provide thoughtful, comprehensive assistance with medication administration as needed, always prioritizing safety and accuracy in every aspect of our dedicated care.',
   },
 ];
 

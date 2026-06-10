@@ -1,69 +1,81 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import SubHero from '../components/SubHero.astro';
+import Heading from '../components/Heading.astro';
 import Button from '../components/Button.astro';
 import Icon from '../components/Icon.astro';
 
 const FAQS = [
   {
     q: 'What services do you offer?',
-    intro: 'We provide comprehensive non-medical home care, tailored to each individual’s needs and recovery goals:',
     items: [
-      { h: 'Personal Care', p: 'Assistance with activities of daily living — bathing, grooming, dressing and toileting.' },
-      { h: 'Companionship', p: 'Social interaction, conversation and emotional support to alleviate loneliness and promote well-being.' },
-      { h: 'Medication Management', p: 'Reminders to take medications on schedule and assistance with administration as needed.' },
+      { h: 'Personal Care', p: 'Assistance with activities of daily living, such as bathing, grooming, dressing, and toileting.' },
+      { h: 'Companionship', p: 'Social interaction, conversation, and emotional support to alleviate loneliness and promote well-being.' },
+      { h: 'Medication Management', p: 'Reminders to take medications on schedule and assistance with medication administration as needed.' },
       { h: 'Meal Preparation', p: 'Planning and preparing nutritious meals tailored to dietary preferences and restrictions.' },
-      { h: 'Light Housekeeping', p: 'Help with laundry, vacuuming and tidying up living spaces.' },
-      { h: 'Transportation', p: 'Escorting clients to medical appointments, grocery shopping, errands and social outings.' },
-      { h: 'Respite Care', p: 'Temporary relief for family caregivers, so they can take breaks and attend to their own needs.' },
-      { h: 'Post-Cosmetic Care', p: 'Personalized support and care following cosmetic surgery, for a comfortable recovery at home.' },
-      { h: 'Dementia Care', p: 'Specialized care for those living with Alzheimer’s or other dementias, including cognitive stimulation and behavioral management.' },
+      { h: 'Light Housekeeping', p: 'Assistance with light household chores, including laundry, vacuuming, and tidying up living spaces.' },
+      { h: 'Transportation', p: 'Escorting clients to medical appointments, grocery shopping, errands, and social outings.' },
+      { h: 'Respite Care', p: 'Temporary relief for family caregivers, allowing them to take breaks and attend to their own needs.' },
+      { h: 'Post-Cosmetic Care', p: 'Care and support following cosmetic surgery' },
+      { h: 'Dementia Care', p: 'Specialized care for individuals living with Alzheimer’s disease or other forms of dementia, including cognitive stimulation and behavioral management.' },
     ],
+    outro: ['In addition to these services, we also offer specialized post-cosmetic surgery care and assistance. Our trained caregivers provide personalized support to individuals recovering from cosmetic procedures. Our post-cosmetic surgery care services are tailored to each individual’s specific needs and recovery goals, allowing them to heal comfortably and safely in the familiar surroundings of their own home. We work closely with clients, their families, and healthcare providers to ensure a smooth and successful recovery journey.'],
   },
   {
     q: 'How do you ensure the quality of care?',
     items: [
-      { h: 'Rigorous screening & training', p: 'Background checks, reference checks and in-depth interviews, followed by comprehensive training and ongoing education.' },
-      { h: 'Regular supervision & monitoring', p: 'Experienced supervisors conduct frequent home visits to observe care and address any concerns early.' },
-      { h: 'Open communication & feedback', p: 'We keep open channels with clients, families and caregivers, and act on feedback to keep improving.' },
-      { h: 'Quality assurance programs', p: 'Satisfaction surveys, performance evaluations and internal audits guide data-driven improvements.' },
-      { h: 'Adherence to standards', p: 'We uphold all relevant regulations and best practices, with regular reviews and external audits.' },
+      { h: 'Rigorous Screening and Training', p: 'We begin by carefully selecting our caregivers through a thorough screening process. This includes background checks, reference checks, and in-depth interviews to ensure we recruit individuals with not only the requisite qualifications but also the right temperament and commitment to compassionate care. Once hired, our caregivers undergo comprehensive training programs covering a wide range of topics, from basic caregiving skills to specialized care techniques. We emphasize ongoing education to keep our caregivers updated on the latest best practices and advancements in the field.' },
+      { h: 'Regular Supervision and Monitoring', p: 'Our experienced supervisors provide regular oversight and support to our caregivers. They conduct frequent visits to clients’ homes to monitor the quality of care being provided, observe caregiver-client interactions, and address any issues or concerns that may arise. This proactive approach allows us to identify areas for improvement, provide additional training or support as needed, and ensure consistency in service delivery.' },
+      { h: 'Open Communication and Feedback', p: 'We maintain open channels of communication with clients, their families, and caregivers to foster transparency and collaboration. We encourage regular feedback from all parties involved and take proactive steps to address any concerns or suggestions for improvement. This ensures that we continuously strive to meet and exceed our clients’ expectations and adapt our services to evolving needs.' },
+      { h: 'Quality Assurance Programs', p: 'We have robust quality assurance programs in place to evaluate the effectiveness of our services and identify opportunities for enhancement. This includes conducting client satisfaction surveys, caregiver performance evaluations, and internal audits of our processes and procedures. We use the insights gained from these assessments to make data-driven decisions, implement quality improvement initiatives, and ensure consistency and excellence across all aspects of our operations.' },
+      { h: 'Adherence to Regulations and Standards', p: 'We are committed to upholding the highest standards of quality and compliance with all relevant regulations, industry standards, and best practices. Our policies and procedures are regularly reviewed and updated to reflect current guidelines and recommendations, and we undergo external audits and accreditation processes to validate our commitment to quality care.' },
     ],
   },
   {
-    q: 'What are your caregivers’ qualifications and experience?',
-    intro: 'We take great pride in the qualifications and experience of our caregivers:',
-    items: [
-      { h: 'Thorough background checks', p: 'Every caregiver is vetted before hire, for integrity and professionalism you can trust.' },
-      { h: 'HHA certification, minimum', p: 'All caregivers hold at least a Home Health Aide (HHA) certification — skilled in daily-living support, medication management and basic healthcare procedures.' },
-      { h: 'Ongoing training', p: 'Continuous education keeps caregivers current on best practices and emerging trends in home care.' },
-      { h: 'Licensed-nurse assessments', p: 'Initial assessments are conducted by licensed nurses, who build a personalized care plan for each client.' },
+    q: 'What are your caregivers qualifications and experience?',
+    paras: [
+      'We take great pride in the qualifications and experience of our caregivers, ensuring that they meet rigorous standards to provide exceptional care to our clients. All our caregivers undergo a thorough background check before being hired, giving our clients peace of mind knowing that they are entrusting their care to individuals with integrity and professionalism.',
+      'In addition, we require all our caregivers to possess at least a Home Health Aide (HHA) certification, which equips them with the necessary skills and knowledge to deliver quality care in a home setting. This certification demonstrates their competence in assisting with activities of daily living, medication management, basic healthcare procedures, and more.',
+      'Furthermore, we go beyond basic qualifications by ensuring that our caregivers receive ongoing training and education to stay updated on best practices and emerging trends in home care. This commitment to continuous learning enables our caregivers to provide the highest level of care and adapt to the evolving needs of our clients.',
+      'Moreover, our commitment to quality extends to our assessment process. Our initial assessments are conducted by licensed nurses who possess the clinical expertise and experience to comprehensively evaluate our clients’ needs and develop personalized care plans tailored to their unique requirements. This ensures that our clients receive individualized care that addresses their specific health concerns, preferences, and goals.',
+      'By prioritizing qualifications, experience, and ongoing training, and by involving licensed nurses in our assessment process, we ensure that our caregivers are well-equipped to deliver compassionate, reliable, and professional care that enhances the well-being and quality of life of our clients.',
     ],
   },
   {
     q: 'How do you match caregivers with clients?',
-    intro: 'We match on compatibility — not just skills, but on a personal level too:',
-    items: [
-      { h: 'Skills & experience', p: 'We match the caregiver’s expertise to each client’s specific needs, from personal care to dementia or post-surgery recovery.' },
-      { h: 'Personality & interests', p: 'We pair clients with caregivers who share similar interests, fostering real connection and companionship.' },
-      { h: 'Cultural & linguistic background', p: 'We consider cultural and language fit to ensure clear communication and a comfortable, inclusive environment.' },
-      { h: 'Availability & scheduling', p: 'Round-the-clock, part-time or occasional — we find a schedule that works for both client and caregiver.' },
-      { h: 'Feedback & preferences', p: 'We solicit input throughout the relationship and adjust as needed to keep everyone satisfied.' },
+    intro: [
+      'We understand the importance of matching caregivers with clients based on compatibility, not just in terms of skills and experience, but also on a personal level. We recognize that the relationship between a caregiver and a client is built on trust, mutual respect, and understanding, which is why we take great care in our matching process.',
+      'When matching caregivers with clients, we consider a variety of attributes to ensure a successful and harmonious partnership:',
     ],
+    items: [
+      { h: 'Skills and Experience', p: 'We assess the specific needs of each client and match them with caregivers who possess the relevant skills and experience to meet those needs effectively. Whether it’s assistance with personal care, medication management, mobility support, or specialized care for conditions like dementia or post-surgery recovery, we ensure that the caregiver has the necessary expertise.' },
+      { h: 'Personality and Interests', p: 'We recognize that compatibility on a personal level is essential for a positive caregiver-client relationship. Therefore, we consider personality traits, interests, and preferences when matching caregivers with clients. We aim to pair clients with caregivers who share similar interests or hobbies, fostering a sense of connection and companionship.' },
+      { h: 'Cultural and Linguistic Background', p: 'We understand the importance of cultural sensitivity and effective communication in delivering quality care. We take into account the cultural and linguistic backgrounds of both clients and caregivers to ensure cultural competence and facilitate clear communication. This helps bridge any potential language barriers and creates a more comfortable and inclusive care environment.' },
+      { h: 'Availability and Scheduling Preferences', p: 'We strive to accommodate the scheduling preferences of both clients and caregivers to ensure compatibility and continuity of care. Whether a client requires round-the-clock care, part-time assistance, or occasional support, we work closely with both parties to find a mutually convenient schedule that meets their needs.' },
+      { h: 'Feedback and Preferences', p: 'We value feedback from both clients and caregivers and take into account their preferences and concerns when making matches. We actively solicit input throughout the caregiving relationship and make adjustments as necessary to ensure satisfaction and promote positive outcomes.' },
+    ],
+    outro: ['By carefully considering these attributes and involving clients and caregivers in the matching process, we aim to create partnerships that are not only based on meeting care needs but also on fostering meaningful connections and enhancing the overall well-being of our clients.'],
   },
 ];
 ---
 
 <BaseLayout active="faq" title="FAQ"
-  description="Answers to common questions about Caring Hearts Care — our services, how we ensure quality, caregiver qualifications, and how we match caregivers with your family.">
+  description="Answers to common questions about Caring Hearts Care — the services we offer, how we ensure quality, our caregivers’ qualifications, and how we match caregivers with your family.">
   <SubHero
-    title="Frequently asked questions"
-    intro="Top questions, answered here. Got more? Our team is always happy to help — just reach out."
+    title="Frequently Asked Questions"
     crumbs={[{ label: 'Home', href: '/' }, { label: 'FAQ' }]} />
 
   <section class="band band--cream">
     <div class="wrap wrap--narrow">
-      <div class="faq__group">
+      <div class="center-head">
+        <Heading center eyebrow="Popular Questions" title="Caring Hearts Care FAQ"
+          intro="Top Questions, Answered Here – Got more? Our contact page is open for all your questions." />
+        <div style="text-align:center;margin-top:1.2rem;">
+          <Button variant="primary" href="/contact">Contact Us</Button>
+        </div>
+      </div>
+
+      <div class="faq__group" style="margin-top:2.4rem;">
         {FAQS.map((f, i) => (
           <div class={`faq ${i === 0 ? 'faq--open' : ''}`}>
             <button class="faq__q" aria-expanded={i === 0 ? 'true' : 'false'}>
@@ -75,33 +87,31 @@ const FAQS = [
             </button>
             <div class="faq__a">
               <div class="faq__a-inner">
-                {f.intro && <p class="faq__intro">{f.intro}</p>}
-                <div class="faq__list">
-                  {f.items.map((it) => (
-                    <div class="faq__row">
-                      <Icon name="check" />
-                      <p><b>{it.h}</b> — {it.p}</p>
-                    </div>
-                  ))}
-                </div>
+                {f.intro && f.intro.map((t) => <p class="faq__intro">{t}</p>)}
+                {f.paras && f.paras.map((t) => <p class="faq__intro">{t}</p>)}
+                {f.items && (
+                  <div class="faq__list">
+                    {f.items.map((it) => (
+                      <div class="faq__row">
+                        <Icon name="check" />
+                        <p><b>{it.h}:</b> {it.p}</p>
+                      </div>
+                    ))}
+                  </div>
+                )}
+                {f.outro && f.outro.map((t) => <p class="faq__intro" style="margin-top:1rem;">{t}</p>)}
               </div>
             </div>
           </div>
         ))}
-      </div>
-      <div class="faq__cta">
-        <h3>Still have questions?</h3>
-        <p>We’re here to help you navigate every step. Reach out and we’ll answer anything.</p>
-        <Button variant="primary" href="/contact">Contact Us</Button>
       </div>
     </div>
   </section>
 </BaseLayout>
 
 <style>
-  /* Accordion expand/collapse driven by the faq--open class */
   .faq__a { max-height: 0; }
-  .faq--open .faq__a { max-height: 1600px; }
+  .faq--open .faq__a { max-height: 4000px; }
   .faq__toggle :global(svg) {
     width: 22px; height: 22px; color: var(--chc-gold-deep); flex: none;
     background: var(--chc-gold-tint); border-radius: 999px; padding: 4px; box-sizing: content-box;
@@ -117,10 +127,8 @@ const FAQS = [
     btn.addEventListener('click', () => {
       const item = btn.closest('.faq');
       const isOpen = item?.classList.contains('faq--open');
-      // close all
       document.querySelectorAll('.faq').forEach((el) => el.classList.remove('faq--open'));
       document.querySelectorAll('.faq__q').forEach((b) => b.setAttribute('aria-expanded', 'false'));
-      // open this one if it was closed
       if (!isOpen) {
         item?.classList.add('faq--open');
         btn.setAttribute('aria-expanded', 'true');

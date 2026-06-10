@@ -1,0 +1,246 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SubHero from '../components/SubHero.astro';
+import Heading from '../components/Heading.astro';
+import Button from '../components/Button.astro';
+import Icon from '../components/Icon.astro';
+import { site } from '../data/site';
+
+/**
+ * Home Health Care Assessment — reproduces the 15-question scored quiz from
+ * caringheartscare.com/home-health-care-assessment/. Questions and answer options are
+ * verbatim. On submit it tallies a simple risk score (the original's exact scoring weights
+ * aren't published, so this uses a transparent heuristic) and emails the full responses to
+ * Caring Hearts Care via Web3Forms.
+ */
+
+const QUESTIONS = [
+  { id: 'q1', q: 'Does your loved one live alone?', type: 'radio',
+    options: ['Yes', 'No'] },
+  { id: 'q2', q: 'Has he or she previously had home care?', type: 'radio',
+    options: ['Yes', 'No'] },
+  { id: 'q3', q: 'Has he or she had a recent emergency room or hospital visit?', type: 'radio',
+    options: ['No recent emergency room or hospital visits', 'Within the last 30 days', 'Within the last 6 months'] },
+  { id: 'q4', q: 'Has he or she suffered a fall within the last 3 months, or does he or she have a history of falls?', type: 'radio',
+    options: ['Yes', 'No'] },
+  { id: 'q5', q: 'Has your loved one recently added a new medication, had a change in medication, or raised concerns about his or her medication regimen?', type: 'radio',
+    options: ['Yes', 'No'] },
+  { id: 'q6', q: 'Does he or she take 5 or more different medications?', type: 'radio',
+    options: ['Yes', 'No'] },
+  { id: 'q7', q: 'Has your loved one been diagnosed with any of the following?', type: 'checkbox',
+    options: ['Alzheimer’s/dementia', 'Other memory-related condition', 'Stroke', 'Parkinson’s/MS/ALS', 'Other movement disorder', 'COPD or other respiratory condition', 'Diabetes', 'Cancer', 'Back or joint pain', 'Other pain disorder', 'Other', 'None'] },
+  { id: 'q8', q: 'Does your loved one need assistance with daily activities (like bathing, dressing, or grooming)?', type: 'radio',
+    options: ['Yes', 'No'] },
+  { id: 'q9', q: 'Which of the following is difficult for him or her to do alone? (Check all that apply.)', type: 'checkbox',
+    options: ['Bathing', 'Walking/moving around', 'Getting dressed', 'Eating (e.g. trouble swallowing, coughing)', 'Preparing food', 'Using the restroom', 'Driving', 'Verbal communication', 'Other', 'None'] },
+  { id: 'q10', q: 'Does he or she struggle with incontinence?', type: 'radio',
+    options: ['Yes', 'No'] },
+  { id: 'q11', q: 'How easy or hard is it for your loved one to leave home? (Check all that apply.)', type: 'checkbox',
+    options: ['Difficult to get out of bed', 'Requires a taxing effort', 'Requires another person’s help', 'Requires a walker or wheelchair', 'Difficult, but still gets out frequently', 'No difficulty leaving home'] },
+  { id: 'q12', q: 'When was your loved one’s last appointment with his or her primary care physician?', type: 'radio',
+    options: ['Within the past month', '1-3 months ago', 'More than 3 months ago', 'Not applicable'] },
+  { id: 'q13', q: 'Do you feel like you need more support and/or information to better care for your loved one?', type: 'radio',
+    options: ['Yes', 'No'] },
+  { id: 'q14', q: 'How old is your loved one?', type: 'radio',
+    options: ['Under 55', '55 - 64', '65 - 79', '80 +'] },
+  { id: 'q15', q: 'Is your loved one male or female?', type: 'radio',
+    options: ['Male', 'Female'] },
+];
+---
+
+<BaseLayout active="" title="Home Health Care Assessment"
+  description="Identify your loved one’s risk factors and determine whether home health care can help by completing this short assessment from Caring Hearts Care.">
+  <SubHero
+    title="Home Health Care Assessment"
+    crumbs={[{ label: 'Home', href: '/' }, { label: 'Home Health Care Assessment' }]} />
+
+  <section class="band band--cream">
+    <div class="wrap wrap--narrow">
+      <div class="center-head">
+        <Heading center eyebrow="Assessment"
+          title="Home Health Care Assessment"
+          intro="Identify your loved one’s risk factors and determine whether home health care can help by completing the assessment below." />
+      </div>
+
+      <form id="assessment-form" class="formcard assessment" style="margin-top:1.6rem;">
+        <input type="hidden" name="access_key" value={site.web3formsKey} />
+        <input type="hidden" name="subject" value="Home Health Care Assessment — Caring Hearts Care" />
+        <input type="hidden" name="from_name" value="Caring Hearts Care website — Assessment" />
+        <input type="hidden" name="assessment_score" id="assessment-score-field" />
+        <input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" style="display:none;position:absolute;left:-9999px;" aria-hidden="true" />
+
+        {QUESTIONS.map((item, i) => (
+          <fieldset class="q" data-qid={item.id} data-qtype={item.type}>
+            <legend><span class="q__n">{i + 1}.</span> {item.q} <span class="req">*</span></legend>
+            <div class="q__opts">
+              {item.options.map((opt) => (
+                <label class="q__opt">
+                  <input type={item.type} name={item.id} value={opt} />
+                  <span>{opt}</span>
+                </label>
+              ))}
+            </div>
+          </fieldset>
+        ))}
+
+        <div class="assessment__contact">
+          <Heading center eyebrow="Almost Done" title="Great Job! Let’s calculate your score." />
+          <div class="field-row" style="margin-top:1rem;">
+            <div class="field"><label for="a-name">Name <span class="req">*</span></label><input id="a-name" name="name" required placeholder="Name" /></div>
+            <div class="field"><label for="a-email">Email <span class="req">*</span></label><input id="a-email" name="email" type="email" required placeholder="Email" /></div>
+          </div>
+          <div class="field"><label for="a-phone">Phone <span class="req">*</span></label><input id="a-phone" name="phone" type="tel" required placeholder="Phone" /></div>
+          <p id="assessment-error" class="form-error" hidden></p>
+          <Button variant="primary" size="lg" type="submit" id="assessment-submit" class="btn-block">Calculate My Score</Button>
+        </div>
+      </form>
+
+      {/* Result panel */}
+      <div id="assessment-result" class="formcard assessment-result" hidden>
+        <div class="ok"><Icon name="heart-handshake" /></div>
+        <h3 id="assessment-result-title"></h3>
+        <p id="assessment-result-body"></p>
+        <div style="margin-top:1.6rem;">
+          <Button variant="primary" href="/contact">Contact Us</Button>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .assessment .q {
+    border: 1px solid var(--chc-border); border-radius: var(--radius-md);
+    padding: 1.2rem 1.4rem; margin: 0 0 1.2rem; background: #fff;
+  }
+  .assessment .q legend {
+    font-family: var(--font-serif); color: var(--chc-navy);
+    font-size: 1.08rem; line-height: 1.35; padding: 0; margin-bottom: 0.8rem;
+  }
+  .q__n { color: var(--chc-gold-deep); font-weight: 700; }
+  .q__opts { display: flex; flex-direction: column; gap: 0.55rem; }
+  .q__opt { display: flex; gap: 0.6rem; align-items: flex-start; cursor: pointer; color: var(--text-body); }
+  .q__opt input { margin-top: 4px; flex: none; accent-color: var(--chc-gold-deep); }
+  .q.q--error { border-color: var(--color-error); }
+  .assessment__contact { margin-top: 2rem; }
+  .btn-block { width: 100%; }
+  .form-error { color: var(--color-error); text-align: center; margin: 0 0 0.8rem; }
+  .assessment-result { text-align: center; }
+  .assessment-result .ok {
+    width: 64px; height: 64px; border-radius: 999px; background: var(--chc-gold-tint);
+    color: var(--chc-gold-deep); display: inline-flex; align-items: center; justify-content: center; margin-bottom: 1rem;
+  }
+  .assessment-result .ok :global(svg) { width: 30px; height: 30px; }
+  .assessment-result h3 { font-family: var(--font-serif); color: var(--chc-navy); font-size: 1.7rem; margin: 0 0 0.6rem; }
+  .assessment-result p { color: var(--text-muted); line-height: var(--leading-normal); max-width: 46ch; margin: 0 auto; }
+</style>
+
+<script>
+  const form = document.getElementById('assessment-form') as HTMLFormElement | null;
+  const errorEl = document.getElementById('assessment-error');
+  const submitBtn = document.getElementById('assessment-submit') as HTMLButtonElement | null;
+  const scoreField = document.getElementById('assessment-score-field') as HTMLInputElement | null;
+  const resultPanel = document.getElementById('assessment-result');
+  const resultTitle = document.getElementById('assessment-result-title');
+  const resultBody = document.getElementById('assessment-result-body');
+
+  // Answers that indicate a higher likelihood home care could help.
+  const RISK: Record<string, string[]> = {
+    q1: ['Yes'],
+    q3: ['Within the last 30 days', 'Within the last 6 months'],
+    q4: ['Yes'],
+    q5: ['Yes'],
+    q6: ['Yes'],
+    q8: ['Yes'],
+    q10: ['Yes'],
+    q12: ['More than 3 months ago'],
+    q13: ['Yes'],
+  };
+
+  function getAnswers() {
+    const fs = Array.from(document.querySelectorAll<HTMLFieldSetElement>('.q'));
+    return fs.map((f) => {
+      const id = f.dataset.qid!;
+      const checked = Array.from(f.querySelectorAll<HTMLInputElement>('input:checked')).map((i) => i.value);
+      return { id, type: f.dataset.qtype!, values: checked, el: f };
+    });
+  }
+
+  function scoreFor(answers: ReturnType<typeof getAnswers>) {
+    let score = 0;
+    for (const a of answers) {
+      if (RISK[a.id]) score += a.values.filter((v) => RISK[a.id].includes(v)).length;
+    }
+    // q7 diagnoses (any besides "None") and q9 difficulties (any besides "None")
+    const q7 = answers.find((a) => a.id === 'q7');
+    if (q7) score += q7.values.filter((v) => v !== 'None').length;
+    const q9 = answers.find((a) => a.id === 'q9');
+    if (q9) score += q9.values.filter((v) => v !== 'None').length;
+    const q11 = answers.find((a) => a.id === 'q11');
+    if (q11) score += q11.values.filter((v) => v !== 'No difficulty leaving home').length;
+    return score;
+  }
+
+  function showError(msg: string) {
+    if (!errorEl) return;
+    errorEl.textContent = msg;
+    errorEl.hidden = false;
+  }
+
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (errorEl) errorEl.hidden = true;
+    const answers = getAnswers();
+
+    // Require every question answered
+    let firstMissing: HTMLElement | null = null;
+    for (const a of answers) {
+      const ok = a.values.length > 0;
+      a.el.classList.toggle('q--error', !ok);
+      if (!ok && !firstMissing) firstMissing = a.el;
+    }
+    if (firstMissing) {
+      showError('Please answer every question before calculating your score.');
+      firstMissing.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      return;
+    }
+
+    const score = scoreFor(answers);
+    if (scoreField) scoreField.value = String(score);
+
+    const data = new FormData(form);
+    if (String(data.get('access_key')).startsWith('YOUR_')) {
+      showError('This form isn’t connected yet. Please try again soon.');
+      return;
+    }
+
+    if (submitBtn) { submitBtn.disabled = true; submitBtn.querySelector('span')!.textContent = 'Calculating…'; }
+
+    try {
+      await fetch('https://api.web3forms.com/submit', { method: 'POST', headers: { Accept: 'application/json' }, body: data });
+    } catch {
+      /* still show the result even if email delivery hiccups */
+    } finally {
+      if (submitBtn) { submitBtn.disabled = false; submitBtn.querySelector('span')!.textContent = 'Calculate My Score'; }
+    }
+
+    // Result band
+    let title = 'Home care could be a great fit';
+    let body = '';
+    if (score >= 8) {
+      title = 'Home health care is strongly recommended';
+      body = 'Your answers point to several risk factors where professional in-home care can make a real difference. A care coordinator will reach out to discuss a personalized plan.';
+    } else if (score >= 4) {
+      title = 'Home care could help your loved one';
+      body = 'Your answers suggest some areas where in-home support would help your loved one stay safe and independent. We’ll be in touch to talk through the options.';
+    } else {
+      title = 'A little support can go a long way';
+      body = 'Your loved one appears relatively independent, but companionship and a helping hand can still improve quality of life. Reach out any time to learn more.';
+    }
+    if (resultTitle) resultTitle.textContent = title;
+    if (resultBody) resultBody.textContent = body;
+    form.hidden = true;
+    if (resultPanel) resultPanel.hidden = false;
+    resultPanel?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  });
+</script>
