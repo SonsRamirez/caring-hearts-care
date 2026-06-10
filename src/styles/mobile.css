@@ -25,6 +25,13 @@ a.btn--secondary { color: var(--chc-navy); }
 a.btn--dark,
 a.btn--ghost-light { color: #fff; }
 
+/* Links sitting on dark/navy backgrounds need a readable hover. The global
+   `a:not(.btn):hover { color: var(--color-link-hover) }` flips them to dark navy,
+   which is invisible on the navy utility bar / sub-hero / article header. */
+a.utilbar__phone:hover { color: var(--chc-gold-light); }
+.subhero .crumbs a:hover,
+.crumbs--onhero a:hover { color: #fff; }
+
 /* ---- Tablet / small laptop ---- */
 @media (max-width: 900px) {
   /* Footer collapses from 4 cols (was unchanged → overflow on phones) */
