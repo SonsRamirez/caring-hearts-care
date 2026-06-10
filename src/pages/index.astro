@@ -11,9 +11,9 @@ import { articles } from '../data/articles';
 import { site } from '../data/site';
 
 const SLIDES = [
-  { h: 'Start the Conversation', p: 'Caring starts with a conversation. Let’s talk about how we can help you or your loved one.', cta: 'Get In Touch', href: '/contact' },
-  { h: 'Comprehensive Home Care', p: 'From personal care to companionship, discover services designed for your loved one’s needs.', cta: 'See Our Services', href: '/services' },
-  { h: 'Discover Our Story', p: 'Learn about our journey to provide exceptional home care, inspired by personal experience.', cta: 'Discover More', href: '/about' },
+  { h: 'Start the Conversation', p: 'Caring starts with a conversation. Let’s talk about how we can help you or your loved one.', cta: 'Get In Touch', href: '/contact', img: '/assets/photos/hero-1.jpg' },
+  { h: 'Comprehensive Home Care', p: 'From personal care to companionship, discover services designed for your loved one’s needs.', cta: 'See Our Services', href: '/services', img: '/assets/photos/hero-2.jpg' },
+  { h: 'Discover Our Story', p: 'Learn about our journey to provide exceptional home care, inspired by personal experience.', cta: 'Discover More', href: '/about', img: '/assets/photos/hero-3.jpg' },
 ];
 
 const HOME_FAQS = [
@@ -47,22 +47,28 @@ const latestPosts = articles.slice(0, 4);
 <BaseLayout active="home" description={site.description}>
   {/* ---------- Hero carousel (3 slides) ---------- */}
   <section class="hero-carousel" aria-roledescription="carousel">
-    <div class="hero-carousel__veil"></div>
+    {/* Background image layers — crossfade per slide */}
     {SLIDES.map((s, i) => (
-      <div class={`hero-slide ${i === 0 ? 'is-active' : ''}`} data-slide={i}>
-        <div class="wrap hero-slide__inner">
-          <h1 class="hero-slide__title">{s.h}</h1>
-          <p class="hero-slide__sub">{s.p}</p>
-          <Button variant="primary" size="lg" href={s.href}>{s.cta}</Button>
-        </div>
-      </div>
+      <div class={`hero-bg ${i === 0 ? 'is-active' : ''}`} data-bg={i}
+        style={`background-image:url(${s.img})`} role="img" aria-label={s.h}></div>
     ))}
+    <div class="hero-carousel__veil"></div>
+    {/* Single, fixed-position content block — text/button swap per slide so nothing moves */}
+    <div class="wrap hero-content">
+      <div class="hero-content__inner">
+        <h1 class="hero-slide__title" id="hero-title">{SLIDES[0].h}</h1>
+        <p class="hero-slide__sub" id="hero-sub">{SLIDES[0].p}</p>
+        <a class="btn btn--primary btn--lg" id="hero-cta" href={SLIDES[0].href}><span>{SLIDES[0].cta}</span></a>
+      </div>
+    </div>
     <div class="hero-dots">
       {SLIDES.map((_, i) => (
         <button class={`hero-dot ${i === 0 ? 'is-active' : ''}`} data-dot={i} aria-label={`Slide ${i + 1}`}></button>
       ))}
     </div>
   </section>
+
+  <script type="application/json" id="hero-slides" set:html={JSON.stringify(SLIDES.map((s) => ({ h: s.h, p: s.p, cta: s.cta, href: s.href })))}></script>
 
   {/* ---------- Welcome ---------- */}
   <section class="band band--white">
@@ -267,43 +273,53 @@ const latestPosts = articles.slice(0, 4);
   /* Hero carousel */
   .hero-carousel {
     position: relative;
-    min-height: 560px;
-    display: grid;
-    background: var(--chc-navy) url(/assets/photos/hero-companionship-man.jpg) center/cover no-repeat;
+    min-height: 580px;
+    overflow: hidden;
+    background: var(--chc-navy);
     isolation: isolate;
   }
+  /* Crossfading background image layers (one per slide) */
+  .hero-bg {
+    position: absolute; inset: 0; z-index: 0;
+    background-size: cover; background-position: center;
+    opacity: 0; transition: opacity 0.9s ease;
+  }
+  .hero-bg.is-active { opacity: 1; animation: heroKenBurns 9s ease-out forwards; }
+  @keyframes heroKenBurns { from { transform: scale(1); } to { transform: scale(1.06); } }
   .hero-carousel__veil {
-    position: absolute; inset: 0;
-    background: linear-gradient(180deg, rgba(14,42,71,0.62), rgba(14,42,71,0.82));
-    z-index: 0;
+    position: absolute; inset: 0; z-index: 1;
+    background: linear-gradient(180deg, rgba(14,42,71,0.55), rgba(14,42,71,0.82));
   }
-  .hero-slide {
-    grid-area: 1 / 1;
+  /* Single, fixed-position content block — only the text/button content swaps */
+  .hero-content {
+    position: relative; z-index: 2;
+    min-height: 580px;
     display: flex; align-items: center;
-    opacity: 0; visibility: hidden;
-    transition: opacity 0.7s ease;
-    z-index: 1; position: relative;
-    padding: var(--space-8) 0;
   }
-  .hero-slide.is-active { opacity: 1; visibility: visible; }
-  .hero-slide__inner { max-width: 46rem; }
+  .hero-content__inner { max-width: 46rem; transition: opacity 0.3s ease; }
+  .hero-content__inner.is-fading { opacity: 0; }
   .hero-slide__title {
     font-family: var(--font-serif); color: #fff;
-    font-size: clamp(2.4rem, 5vw, 3.6rem); line-height: 1.08; margin: 0 0 1rem;
+    font-size: clamp(2.4rem, 5vw, 3.6rem); line-height: 1.1; margin: 0 0 1rem;
+    min-height: 2.2em;            /* reserve 2 lines so 1- vs 2-line titles don't shift the rest */
   }
   .hero-slide__sub {
     color: rgba(255,255,255,0.9); font-size: 1.15rem; line-height: 1.5;
     max-width: 36ch; margin: 0 0 1.8rem;
+    min-height: 3em;              /* reserve 2 lines for the same reason */
   }
   .hero-dots {
     position: absolute; bottom: 1.6rem; left: 0; right: 0;
-    display: flex; gap: 0.6rem; justify-content: center; z-index: 2;
+    display: flex; gap: 0.6rem; justify-content: center; z-index: 3;
   }
   .hero-dot {
     width: 11px; height: 11px; border-radius: 999px; border: 0; cursor: pointer;
-    background: rgba(255,255,255,0.4);
+    background: rgba(255,255,255,0.4); transition: background 0.3s ease;
   }
   .hero-dot.is-active { background: var(--chc-gold); }
+  @media (max-width: 600px) {
+    .hero-slide__title { min-height: 3.3em; }   /* titles wrap more on phones */
+  }
 
   .form-error { color: var(--color-error); text-align: center; margin: 0 0 0.8rem; }
   .form-ok { color: var(--color-success, #2e7d32); text-align: center; margin: 0 0 0.8rem; }
@@ -311,21 +327,41 @@ const latestPosts = articles.slice(0, 4);
 </style>
 
 <script>
-  // Auto-rotating hero carousel
-  const slides = Array.from(document.querySelectorAll<HTMLElement>('.hero-slide'));
+  // Auto-rotating hero carousel — crossfade the background image and swap the
+  // (single, fixed-position) content block so the headline/button never move.
+  const bgs = Array.from(document.querySelectorAll<HTMLElement>('.hero-bg'));
   const dots = Array.from(document.querySelectorAll<HTMLButtonElement>('.hero-dot'));
+  const inner = document.querySelector<HTMLElement>('.hero-content__inner');
+  const titleEl = document.getElementById('hero-title');
+  const subEl = document.getElementById('hero-sub');
+  const ctaEl = document.getElementById('hero-cta');
+  const ctaSpan = ctaEl?.querySelector('span');
+  let slidesData: { h: string; p: string; cta: string; href: string }[] = [];
+  try { slidesData = JSON.parse(document.getElementById('hero-slides')?.textContent || '[]'); } catch {}
   let idx = 0;
   let timer: number | undefined;
   function go(n: number) {
-    slides.forEach((s, i) => s.classList.toggle('is-active', i === n));
+    if (n === idx) return;
+    bgs.forEach((b, i) => b.classList.toggle('is-active', i === n));
     dots.forEach((d, i) => d.classList.toggle('is-active', i === n));
+    const s = slidesData[n];
+    if (s && inner) {
+      inner.classList.add('is-fading');
+      window.setTimeout(() => {
+        if (titleEl) titleEl.textContent = s.h;
+        if (subEl) subEl.textContent = s.p;
+        if (ctaSpan) ctaSpan.textContent = s.cta;
+        if (ctaEl) ctaEl.setAttribute('href', s.href);
+        inner.classList.remove('is-fading');
+      }, 280);
+    }
     idx = n;
   }
-  function next() { go((idx + 1) % slides.length); }
+  function next() { go((idx + 1) % bgs.length); }
   function start() { timer = window.setInterval(next, 6000); }
   function reset() { if (timer) window.clearInterval(timer); start(); }
   dots.forEach((d, i) => d.addEventListener('click', () => { go(i); reset(); }));
-  if (slides.length > 1) start();
+  if (bgs.length > 1) start();
 
   // Home contact form (Web3Forms)
   const form = document.getElementById('home-contact-form') as HTMLFormElement | null;
